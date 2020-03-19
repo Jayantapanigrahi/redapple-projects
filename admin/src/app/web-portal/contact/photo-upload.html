@@ -1,0 +1,50 @@
+<div class="coal_mid_sec">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6">
+			 
+				<h2>Contact Us</h2>
+				<form [formGroup]="Contactform"  (ngSubmit)="ContactformSubmit()">
+				   <div class="form-group">
+					<mat-form-field>
+					<mat-label>Name</mat-label>
+				        <input matInput type="text" placeholder="Enter Your name" formControlName="user_name" required>
+				    </mat-form-field>
+					</div>
+					<div class="form-group">
+						<mat-form-field>
+					    <mat-label>Email</mat-label>
+			            <input matInput type="email" placeholder="Enter your email" formControlName="email"  required>
+				        </mat-form-field>
+			        </div>
+					<div class="form-group">
+						<mat-form-field>
+						<mat-label>Contact No</mat-label>
+					        <input matInput type="number" placeholder="Ex:9878******" formControlName="contact_no" required>
+					    </mat-form-field>
+					</div>
+					<div class="form-group">
+						<mat-form-field>
+							<mat-label>Message</mat-label>
+							<textarea matInput formControlName="message"></textarea>
+						</mat-form-field>
+					</div>
+					
+					<p style="color:green" *ngIf="response">{{response}}</p>
+					<p style="color:red" *ngIf="error">{{error}}</p>
+					<button type="submit" class="submit_btn">Submit</button>
+				</form>
+
+
+			</div>
+			<div class="col-xs-12 col-sm-6 ">
+				<h2>Coal India Limited</h2>
+				<p>
+					Coal Bhawan Premise No - 04 Mar, Plot No - AF 3, Action Area - 1A,<br>
+					Newtown, Rajarhat, kolkata - 700156<br>
+				</p>
+				<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14735.686207020874!2d88.447238!3d22.5820372!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2f87bb2e6c3c6944!2sCoal%20India%20Limited!5e0!3m2!1sen!2sin!4v1578393780692!5m2!1sen!2sin" width="100%" height="320" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+			</div>
+		</div>
+	</div>
+</div>

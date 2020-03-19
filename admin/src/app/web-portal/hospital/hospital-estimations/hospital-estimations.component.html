@@ -1,0 +1,94 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<section class="col-sm-10 side_nav_content col-sm-offset-2">
+  <div class="container text-center">
+    <h2>Admitted Employees</h2>
+  </div>
+  <div *ngIf="estimations && listView && !detailsView" class="container">
+    <div class="col-xs-12 col-sm-12">
+        <h4 style="padding-top: 20px;">Filter by</h4>
+        <mat-form-field class="full_width">
+          <input matInput placeholder="Filter by" type="serach" (keyup)="applyFilter($event.target.value)">
+        </mat-form-field>
+        <!-- <div class="row filter_box">
+          <input class="filter" type="serach" (keyup)="applyFilter($event.target.value)">
+        </div> -->
+        </div>
+  	<div class="row" *ngIf="estimations.length && listView && !detailsView">
+      <div class="col-xs-12">
+        <mat-accordion>
+          <div class="col-sm-12 mb-15" *ngFor="let element of estimations | paginate: config">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <div class="col-xs-12 col-sm-4">
+                  <mat-panel-title>
+                    <b>Employee Name: </b> &nbsp;{{(element.employee) ? (element.employee.employee_name) : ""}}
+                  </mat-panel-title>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                  <mat-panel-description>
+                    <b>Date Of Admission: </b> &nbsp;{{element.date_of_admission | date}}
+                  </mat-panel-description>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                  <mat-panel-description>
+                    <b>Admissoin Number: </b> &nbsp;{{element.admission_number}}
+                  </mat-panel-description>
+                </div>
+                
+                
+                
+              </mat-expansion-panel-header>
+
+              <mat-list>
+               <div *ngFor="let elementEst of element.estimations" style="padding:0;">
+                <div class="col-xs-12" style="margin-top: 15px; padding:0 14px ">
+                  <div class="row">
+                    <div class="col-sm-3 mb-12"><b>Doctor Name: </b>{{elementEst.doctor_name}}</div>
+                    <div class="col-sm-3 mb-12"><b>Estimated Amount: </b>{{elementEst.total_estimated_amount}}</div>
+                    <div class="col-sm-4 mb-12"><b>Date Of Estimation: </b> &nbsp;{{elementEst.created_at | date}}</div>
+                    <div class="col-sm-2 mb-12"><button mat-raised-button color="primary" (click)="viewDetails(elementEst)"> View details </button></div>
+                  </div>
+                
+                </div>
+              </div>
+              </mat-list>
+              
+            </mat-expansion-panel>
+          </div>
+        </mat-accordion>
+      </div>
+      
+      <div class="col-xs-12">
+        <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+      </div>
+      
+    </div>
+   <div class="text-center" *ngIf="!estimations.length">
+    No records found
+   </div>
+  </div>
+<div class="row" *ngIf="!listView && detailsView">
+  <div class="col-xs-12">
+    <button mat-raised-button color="primary" (click)="viewList()"> Back </button>
+  </div>
+  
+  <div class="col-sm-12 col-xs-12">
+    <p class="employee_address"><b>Doctor Name: </b>{{listElement.doctor_name}}</p>
+    <p class="employee_address"><b>Plan Of Treatment: </b><br>{{listElement.plan_of_treatment}}</p>
+    <p class="employee_address"><b>Estimated Amount: </b>{{listElement.total_estimated_amount}}</p>
+    <p class="employee_address"><b>Approved Amount: </b>{{listElement.approved_amount}}</p>
+    <p class="employee_address"><b>Provisional Dignosis: </b><br>{{listElement.provisional_diagnosis}}</p>
+    <p class="employee_address"><b>Remarks: </b><br>{{listElement.hospital_remarks}}</p>
+    <p class="employee_address"><b>Disclaimer: </b><br>{{listElement.hospital_disclaimer}}</p>
+  </div>
+  <div class="col-xs-12 col-sm-12">
+  <div class="col-sm-6 particulars" *ngFor="let Pelement of listElement.estimate_particulars">
+    <p class="employee_address"><b>Particulars Name: </b>{{Pelement.particulars}}</p>
+    <p class="employee_address"><b>CGHS Code: </b>{{Pelement.cghs_code}}</p>
+    <p class="employee_address"><b>Amount: </b>{{Pelement.amount}}</p>
+  </div>
+</div>
+</div>
+  
+</section>
+

@@ -1,0 +1,213 @@
+<section class="registration_sec">
+	<div class="container">
+ 		<div class="col-sm-12">
+ 			<div class="registration_inner">
+ 				<h4>Register</h4>
+ 				<h6>Contribution Scheme for Post Retirement Facilities for Executives</h6>
+ 			</div>
+ 			<form [formGroup]="signupForm" (ngSubmit)="signupFormSubmit()">
+	 			<div class="row reg_mid">
+	 				<div class="col-sm-4">
+	 					<div class="regis_fld">
+	 						<div class="form-group">
+	 							 <mat-form-field>
+									  <mat-label>Email</mat-label>
+									  <input matInput #email type="email" formControlName="email"placeholder="EX: something@some.com" [readonly]="isReadonly" (keyup)="ShowButton(mobile.value,$event.target.value)" required>
+								 </mat-form-field>
+
+								  <div class="error" *ngIf="signupForm.get('email').hasError('required') ">Email is required</div>
+								  <div class="error" *ngIf="signupForm.get('email').hasError('email')">Email must be a valid email address</div>
+	 						</div>
+	 					</div>
+	 				</div>
+	 				<div class="col-sm-4">
+	 					<div class="regis_fld">
+	 						<div class="form-group">
+	 							 <mat-form-field>
+									  <mat-label>Phone</mat-label>
+									  <input matInput #mobile type="text" [readonly]="isReadonly" formControlName="mobile" maxlength="10" pattern="[0-9]*" digitOnly
+                                (keyup)="ShowButton($event.target.value,email.value)" (keypress)="omit_text($event)" required>
+								 </mat-form-field>
+								 <div class="error" *ngIf="signupForm.get('mobile').hasError('required')">Phone Number is required</div>
+	 						</div>
+	 					</div>
+	 				</div>
+	 				<div class="col-sm-4" *ngIf="!afterValid">
+	 					<div class="regis_fld" *ngIf="otpButtn" style="margin-top:20px;">
+	 				      <button  mat-flat-button color="primary" (click)="sendOtp(mobile.value,email.value)"  type="button">Send Otp</button></div>
+	 				     <div class="regis_fld" *ngIf="reotpButtn" style="margin-top:20px;">
+	 				      <button  mat-flat-button color="primary" (click)="sendOtp(mobile.value,email.value)"  type="button">Resend Otp</button></div>
+	 					<div class="regis_fld" *ngIf="otpShow">
+	 						<div class="form-group">
+	 							 <mat-form-field>
+									  <mat-label>OTP</mat-label>
+									  <input matInput type="number" #otp (keyup)="verifyOtp(otp.value)" placeholder="Sent to your mpbile">
+								 </mat-form-field>
+	 						</div>
+	 					</div>
+	 				</div>
+	 				<div class="" *ngIf="afterValid" style="width: 100%; float: left;display: flex; flex-wrap: wrap;">
+	 					<div class="col-md-3 col-sm-3">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+										  <mat-label>Password</mat-label>
+										  <input matInput type="password" formControlName="password" placeholder="6 character minimum" >
+									 </mat-form-field>
+								      <div class="error" *ngIf="signupForm.get('password').hasError('required') && isSubmitted">Password is required</div>
+								      
+                        <div *ngIf="signupForm.get('password').hasError('minlength') && isSubmitted">Password must be at least 6 characters</div>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-md-3 col-sm-3">
+	 					<div class="regis_fld">
+	 						<div class="form-group">
+	 							 <mat-form-field>
+									  <mat-label>Hospital name</mat-label>
+									  <input matInput type="text" formControlName="name" placeholder="EX: HOSPITAL" required>
+									  
+
+								 </mat-form-field>
+								 <div class="error" *ngIf="signupForm.get('name').hasError('required') && isSubmitted">Hospital name is required</div>
+	 						</div>
+	 					</div>
+	 				   </div>
+	 				   <div class="col-md-3 col-sm-3">
+	 					<div class="regis_fld">
+	 						<div class="form-group">
+	 							 <mat-form-field>
+									  <mat-label>Hospital url</mat-label>
+									  <input matInput type="text" formControlName="hospital_url" placeholder="EX: someurl.com" required>
+									  
+
+								 </mat-form-field>
+								 <div class="error" *ngIf="signupForm.get('hospital_url').hasError('required') && isSubmitted">Hospital url is required</div>
+	 						</div>
+	 					</div>
+	 				   </div>
+	 				   <div class="col-sm-3">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+										  <mat-label>First name</mat-label>
+										  <input matInput type="text" formControlName="firstname" placeholder="Registering user First Name" >
+										  
+									 </mat-form-field>
+									 <div class="error" *ngIf="signupForm.get('firstname').hasError('required') && isSubmitted">First name is required</div>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-3">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+										  <mat-label>Last name</mat-label>
+										  <input matInput type="text" formControlName="lastname" placeholder="Registering user Last Name">
+										  
+									 </mat-form-field>
+									 <div class="error" *ngIf="signupForm.get('lastname').hasError('required') && isSubmitted">Last name is required</div>
+		 						</div>
+		 					</div>
+		 				</div>
+	 				</div>
+					<div class="" *ngIf="afterValid" style="width: 100%; float: left;display: flex; flex-wrap: wrap;">
+		 				<div class="col-sm-4">
+		 					<div class="regis_box">
+		 						<p>Hospital logo</p>
+					 				<img style="object-fit: cover;" src={{testImagesource.logo}} alt="Test Image" width="100%" (click)="testImage1.click()"  onError="this.src='assets/images/upload_card.png'">
+					 				<p>.pdf .jpg .JPEG .png file only(max 20MB)</p>
+							      <input #testImage1 type="file" formControlName="logo" (change)="importFile($event,'logo')" style="display:none" accept="image/*">
+		 					</div>
+		 					<div class="error" *ngIf="signupForm.get('logo').hasError('required') && isSubmitted">Logo is required</div>
+		 				</div>
+		                <div class="col-sm-8">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Hospital address</mat-label>
+									    <textarea matInput type="textarea" formControlName="address" placeholder=""></textarea>
+									  </mat-form-field>
+									  <div class="error" *ngIf="signupForm.get('address').hasError('required') && isSubmitted">Address is required</div>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-6">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Hospital description</mat-label>
+									    <textarea matInput type="textarea" formControlName="description" placeholder=""></textarea>
+									  </mat-form-field>
+									  <div class="error" *ngIf="signupForm.get('description').hasError('required') && isSubmitted">Description is required</div>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				
+	 				
+		 				<div class="col-sm-6">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Bank account number</mat-label>
+		                                <input matInput type="text" formControlName="bank_account_number" placeholder="">
+		                             </mat-form-field>
+		                             <div class="error" *ngIf="signupForm.get('bank_account_number').hasError('required') && isSubmitted">Bank account number is required</div>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-6">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>IFSC code</mat-label>
+		                                <input matInput type="text" formControlName="ifsc_code" placeholder="">
+		                             </mat-form-field>
+		                             <div class="error" *ngIf="signupForm.get('ifsc_code').hasError('required') && isSubmitted">Bank IFSC code is required</div>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-6">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Bank name</mat-label>
+		                                <input matInput type="text" formControlName="bank_name" placeholder="">
+		                             </mat-form-field>
+		                             <div class="error" *ngIf="signupForm.get('bank_name').hasError('required') && isSubmitted">Bank name is required</div>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-4">
+		 							<div class="signa_sec">
+		 								<div class="form-group">
+			 							 	<div class="regis_box">
+						 						<p>Bank proof document</p>
+									 			 <img style="object-fit: cover;" src={{testImagesource.bank_proof_document}} alt="Test Image" width="100%" (click)="testImage4.click()"  onError="this.src='assets/images/upload_card.png'">
+									 			 <p>.pdf .jpg .JPEG .png file only(max 20MB)</p>
+											      <input #testImage4 type="file" formControlName="bank_proof_document" (change)="importFile($event,'bank_proof_document')" style="display:none" accept="image/*">
+						 					</div>
+						 					 <div class="error" *ngIf="signupForm.get('bank_proof_document').hasError('required') && isSubmitted">Bank proof is required</div>
+		 						        </div>
+		 							</div>
+		 						</div>
+		 				<div class="col-sm-8">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Your request message</mat-label>
+									    <textarea matInput type="textarea" formControlName="request_message" placeholder=""></textarea>
+									  </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-xs-12">
+		 					<button  mat-flat-button color="primary" type="ngSubmit">Register</button> 
+		 				</div>
+		 				</div>
+		 				
+	 				</div>
+	 			</form>
+		    </div>
+ 		</div>
+</section>

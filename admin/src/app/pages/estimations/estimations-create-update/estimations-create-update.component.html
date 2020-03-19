@@ -1,0 +1,68 @@
+<div fxLayout="row" fxLayoutAlign="start center" mat-dialog-title>
+    <!-- <img *ngIf="form.get('imageSrc').value" [src]="form.get('imageSrc').value" class="avatar mr-5"> -->
+
+    <h2>Estimation Details</h2>
+    <h2 *ngIf="EstimationData.department_approval"
+        class="headline m-0"
+        fxFlex="auto">Approved: {{EstimationData.department_approval}}</h2>
+
+    <!-- <button [matMenuTriggerFor]="settingsMenu" class="text-secondary" mat-icon-button type="button">
+      <mat-icon [icIcon]="icMoreVert"></mat-icon>
+    </button> -->
+
+    <button class="text-secondary" mat-dialog-close mat-icon-button type="button">
+      <mat-icon [icIcon]="icClose"></mat-icon>
+    </button>
+  </div>
+
+  <mat-divider class="-mx-6 text-border"></mat-divider>
+    
+  <mat-dialog-content fxLayout="column">
+    <p><b>Employee Name: </b>{{(!EstimationData.employee_name)?'':(EstimationData.employee_name)}}</p>
+    <p><b>Hospital Name: </b>{{(!EstimationData.hospital_name)?'':(EstimationData.hospital_name)}}</p>
+    <p><b>Hospital submit date: </b>{{(!EstimationData.date_of_admission)?'':(EstimationData.date_of_admission) | date}}</p>
+    
+    <p><b>Provisional Diagnosis: </b>{{EstimationData.provisional_diagnosis}}</p>
+    <p><b>Plan Of Treatment: </b>{{EstimationData.plan_of_treatment}}</p>
+    <p><b>Estimated Amount: </b>{{EstimationData.total_estimated_amount}}</p>
+    <p><b>Hospital Remarks: </b>{{EstimationData.hospital_remarks}}</p>
+    <p><b>Hospital Disclaimer: </b>{{EstimationData.hospital_disclaimer}}</p>
+    <p class="employee_address"><b>Discharge Document: </b><a style="color:blue;" [href]="fileUrl" target="_blank" [download]="fileUrl">DownloadFile</a></p>
+   <p><b>Estimate Particulars: </b></p>
+    <div class="col-sm-6 particulars" *ngFor="let Pelement of EstimationData.estimate_particulars">
+                <p class="employee_address"><b>Particulars: </b>{{Pelement.particulars}}</p>
+                <p class="employee_address"><b>CGHS Code: </b>{{Pelement.cghs_code}}</p>
+                <p><b>Amount: </b>{{Pelement.amount}}</p>
+              </div>
+
+  </mat-dialog-content>
+ 
+  <form *ngIf="(admin_role == 'admin' && admin_type == '3') || admin_type == '1' " (ngSubmit)="save()" [formGroup]="form">
+      <mat-form-field class="full_width">
+        <mat-label>Approved amount</mat-label>
+        <input matInput type="number" placeholder="Approve amount" [min]='0' formControlName="approved_amount" (keypress)="omit_text($event)">
+      </mat-form-field>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">CANCEL</button>
+    <button *ngIf="isUpdateMode()" color="primary" mat-button type="submit" [disabled]="form.invalid">Approve</button>
+    <button color="primary" mat-button type="submit" (click)="rejectEstimation()">Reject</button>
+    
+  </mat-dialog-actions>
+</form>
+
+<!-- <mat-menu #settingsMenu="matMenu" xPosition="before" yPosition="below">
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icPrint"></mat-icon>
+    <span>Print</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icDownload"></mat-icon>
+    <span>Export</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icDelete"></mat-icon>
+    <span>Delete</span>
+  </button>
+</mat-menu> -->

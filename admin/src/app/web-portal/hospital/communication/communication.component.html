@@ -1,0 +1,51 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<section class="col-sm-10 side_nav_content col-sm-offset-2">
+	<div class="container text-center">
+		<h2>Communication Panel</h2>
+	</div>
+	<div class="container" *ngIf="formView">
+		<div class="col-xs-12 col-sm-12" style="margin-bottom: 15px;">
+			<button  mat-flat-button color="primary" type="button" (click)="list()">Back</button>
+		</div>
+		<form (ngSubmit)="save()" [formGroup]="comunication">
+				
+				<div class="col-xs-12 col-sm-12">
+					<h4>Remarks</h4>
+					<ol type="a" class="list_item">
+						 <mat-form-field class="full_width">
+									    <textarea matInput type="textarea" formControlName="remarks" placeholder="500 characters only" maxlength="500" required></textarea>
+						</mat-form-field>
+						<p *ngIf="comunication.get('remarks').hasError('required') && isSubmitted" style="color: red">Remarks is required</p>
+					</ol>
+				</div>
+				<div class="col-xs-12 col-sm-12">
+					<button  mat-flat-button color="primary" type="ngSubmit">Submit</button>
+				</div>
+			
+		</form>
+	</div>
+	<div class="container" *ngIf="listView && comunicationList">
+		<div class="col-xs-12" style="margin-bottom: 15px">
+			<button  mat-flat-button color="primary" type="button" (click)="addNew()">Add</button>
+		</div>
+		
+         <mat-accordion>
+  	     <div class="col-sm-12 mb-15" *ngFor="let element of comunicationList | paginate: config">
+  	     	<mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <b>Your Remark: </b> &nbsp;{{(element.remarks) ? (element.remarks) : ""}}
+              </mat-panel-title>
+              <mat-panel-description>
+                <b>Submited On: </b> &nbsp;{{element.created_at }}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+           <b>CIL Admin Comment: </b> {{element.cil_admin_comments }}
+          </mat-expansion-panel>
+        </div>
+     </mat-accordion>
+     <div class="col-xs-12" style="margin-top: 15px">
+     	<pagination-controls (pageChange)="pageChanged($event)"  ></pagination-controls>
+     </div>
+ </div>
+</section>

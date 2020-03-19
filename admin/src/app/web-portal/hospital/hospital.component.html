@@ -1,0 +1,100 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<!-- <mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button>
+      <mat-icon (click)="sidenav.toggle()"><i class="material-icons">list</i></mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar> -->
+<mat-sidenav-container>
+  <!-- <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a mat-list-item [routerLink]="'./dashboard'"> Dashboard </a>
+      <a mat-list-item *ngIf="user_role=='admin'" [routerLink]="'./profile'">Profile</a>
+      <a mat-list-item *ngIf="user_role=='admin'" [routerLink]="'./de-users'">Users</a>
+      <a mat-list-item [routerLink]="'./cil-employees'">CIL Employees</a>
+      <a mat-list-item [routerLink]="'./hospital-estimation-submission'">Add Estimations</a>
+    </mat-nav-list>
+  </mat-sidenav> -->
+  <mat-sidenav-content>
+    <div >
+      <router-outlet>
+        
+        <div class="col-sm-2 side_nav">
+          <div class="user_profile">
+             <div class="user_img">
+              <img src="{{user_image}}" alt="Photo of a Shiba Inu" onError="this.src='assets/images/sm_profile.png';" width="100%">
+            </div>
+            <div class="user_info">
+              {{user_name}}
+            </div>
+          </div>
+          
+          <ul>
+          <li [ngClass]="{'active':active == '1'}" (click)="setActive('1')">
+            <a mat-list-item [routerLink]="'./dashboard'"> 
+              <i class="material-icons" style="font-size: 20px; margin-right: 5px; float: left;">dashboard</i><div style="line-height: 21px;">Dashboard</div>
+            </a>
+          </li>
+          <li [ngClass]="{'active':active == '2'}" (click)="setActive('2')">
+            <a mat-list-item *ngIf="user_role=='admin'" [routerLink]="'./profile'">
+              <i class="material-icons" style="font-size: 20px; margin-right: 5px; float: left;">account_circle</i>
+            <div style="line-height: 21px;">Profile</div>
+            </a>
+          </li>
+          <li [ngClass]="{'active':active == '3'}" (click)="setActive('3')">
+            <a mat-list-item *ngIf="user_role=='admin'" [routerLink]="'./de-users'">
+            <i class="material-icons" style="font-size: 20px; margin-right: 5px; float: left;">account_circle</i>
+            <div style="line-height: 21px;">Users</div></a>
+          </li>
+          <li [ngClass]="{'active':active == '4'}" (click)="setActive('4')">
+            <a mat-list-item [routerLink]="'./cil-employees'">
+            <i class="material-icons" style="font-size: 20px; margin-right: 5px; float: left;">account_circle</i>
+            <div style="line-height: 21px;">CIL Employees</div></a>
+          </li>
+          <li [ngClass]="{'active':active == '5'}" (click)="setActive('5')">
+            <a mat-list-item [routerLink]="'./hospital-estimation-submission'">
+            <i class="material-icons" style="font-size: 20px; margin-right: 5px; float: left">assignment</i>
+            <div style="line-height: 21px;">Admit And Estimations</div></a>
+          </li>
+          <li [ngClass]="{'active':active == '9'}" (click)="setActive('9')">
+            <a mat-list-item  [routerLink]="'./hospital-estimation-list'">
+            <i class="material-icons" style="font-size: 20px; margin-right: 5px; float: left;">account_circle</i>
+            <div style="line-height: 21px;">Admitted Employees</div></a>
+          </li>
+          <li [ngClass]="{'active':active == '10'}" (click)="setActive('10')">
+            <a mat-list-item  *ngIf="user_role=='admin'" [routerLink]="'./hospital-approved-estimation-list'">
+            <i class="material-icons" style="font-size: 20px; margin-right: 5px; float: left">assignment</i>
+            <div style="line-height: 21px;">Approved Estimation List</div></a>
+          </li>
+          <li [ngClass]="{'active':active == '6'}" (click)="setActive('6')">
+            <a mat-list-item [routerLink]="'./hospital-bill-submission'">
+            <i class="material-icons" style="font-size: 20px; margin-right: 5px; float: left">assignment</i>
+            <div style="line-height: 21px;">Bill And Discharge</div></a>
+          </li>
+          <li [ngClass]="{'active':active == '7'}" (click)="setActive('7')">
+            <a mat-list-item  [routerLink]="'./hospital-bill-list'">
+            <i class="material-icons" style="font-size: 20px; margin-right: 5px; float: left">assignment</i>
+            <div style="line-height: 21px;">Pending Bill List</div></a>
+          </li>
+          <li [ngClass]="{'active':active == '8'}" (click)="setActive('8')">
+            <a mat-list-item  *ngIf="user_role=='admin'" [routerLink]="'./hospital-approved-bill-list'">
+            <i class="material-icons" style="font-size: 20px; margin-right: 5px; float: left">assignment</i>
+            <div style="line-height: 21px;">Cleared Bill List</div></a>
+          </li>
+          <li [ngClass]="{'active':active == '11'}" (click)="setActive('11')">
+            <a mat-list-item  *ngIf="user_role=='admin'" [routerLink]="'./hospital-comunication'">
+            <i class="material-icons" style="font-size: 20px; margin-right: 5px; float: left">assignment</i>
+            <div style="line-height: 21px;">Comunication</div></a>
+          </li>
+          
+        </ul>
+        </div>
+
+      </router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+

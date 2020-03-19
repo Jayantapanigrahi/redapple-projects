@@ -1,0 +1,146 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<section class="col-sm-10 side_nav_content col-sm-offset-2">
+	<div class="container text-center">
+		<h2>Dashboard</h2>
+	</div>
+<div class="container" *ngIf="listView">
+  <div *ngIf="dataSource" class="mat-elevation-z8" >
+			<div class="col-xs-12 col-sm-12">
+				<h4 style="padding-top: 20px;">Filter by</h4>
+				<mat-form-field class="full_width">
+					<input matInput placeholder="Filter by" type="serach" (keyup)="applyFilter($event.target.value)">
+				</mat-form-field>
+				<!-- <div class="row filter_box">
+					<input class="filter" type="serach" (keyup)="applyFilter($event.target.value)">
+				</div> -->
+    		</div>
+    		
+    		<div class="table-responsive">
+    			<table mat-table [dataSource]="dataSource" matSort class="table">
+
+				    <ng-container matColumnDef="serial_no">
+				      <th mat-header-cell *matHeaderCellDef>
+				        SL no.
+				      </th>
+
+				      <td mat-cell *matCellDef="let row; let i=index;">
+				        {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+				      </td>
+				    </ng-container>
+				    
+					<!-- Position Column -->
+					<ng-container matColumnDef="medical_card_no">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header>Medical card no</th>
+					<td mat-cell *matCellDef="let element"><span *ngIf="element.master">{{element.master.medical_card_number}}</span></td>
+					</ng-container>
+                    
+                    <ng-container matColumnDef="employee_id">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header>Employee ID</th>
+					<td mat-cell *matCellDef="let element"><span *ngIf="element.employee">{{element.employee.employee_id}}</span></td>
+					</ng-container>
+
+                    <ng-container matColumnDef="mobile">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header>Mobile number</th>
+					<td mat-cell *matCellDef="let element">{{element.mobile}}</td>
+					</ng-container>
+
+					<!-- Name Column -->
+					<ng-container matColumnDef="email">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+					<td mat-cell *matCellDef="let element">{{element.email}}</td>
+					</ng-container>
+
+					<!-- Weight Column -->
+					<ng-container matColumnDef="name">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+					<td mat-cell *matCellDef="let element">
+				    <span *ngIf="element.employee.employee_name">{{element.employee.employee_name}}</span>
+					</td>
+					</ng-container>
+
+					<!-- Symbol Column -->
+					<ng-container matColumnDef="eis">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header>EIS Number</th>
+					<td mat-cell *matCellDef="let element"><span *ngIf="element.master"> {{element.master.eis_number}} </span></td>
+					</ng-container>
+
+					<ng-container matColumnDef="pan">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header>Pan number</th>
+					<td mat-cell *matCellDef="let element"><span *ngIf="element.master"> {{element.master.pan_number}} </span></td>
+					</ng-container>
+
+                    <ng-container matColumnDef="adhar">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header>Aadhaar number</th>
+					<td mat-cell *matCellDef="let element"><span *ngIf="element.master"> {{element.master.adhaar_number}} </span></td>
+					</ng-container>
+                    
+                    
+
+					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+					<tr mat-row  class="element-row"  *matRowDef="let row; columns: displayedColumns;" (click)="details(row)"> Click</tr>
+					</table>
+
+    		</div>
+	
+
+
+     <div class="no_record" *ngIf="dataSource.filteredData.length === 0">
+      No records found
+     </div>
+		
+	<mat-paginator
+    #paginatorRef
+    [length]="20"
+    [pageSize]="20"
+    [pageSizeOptions]="[20, 40, 60]" showFirstLastButtons></mat-paginator>
+
+</div>
+</div>
+
+<div class="container" *ngIf="detailsView">
+	<button mat-raised-button color="primary" (click)="viewList()"> Back </button>
+	<h4 style="padding-top: 20px;">Employee Details</h4>
+	<mat-card>
+		<mat-list>
+			<div class="col-sx-12 col-sm-6">
+				<mat-list-item><b>Employee Name:</b>&nbsp; {{empDetails.employee.employee_name}}</mat-list-item>
+			</div>
+			<div class="col-sx-12 col-sm-6">
+				<mat-list-item><b>Employee ID:</b>&nbsp; {{empDetails.employee.employee_id}} </mat-list-item>
+			</div>
+			<div class="col-sx-12 col-sm-6">
+				<mat-list-item><b>Joining Date:</b>&nbsp; {{empDetails.employee.date_of_joining}}</mat-list-item>
+			</div>
+			<div class="col-sx-12 col-sm-6">
+				<mat-list-item><b>Date of Birth:</b>&nbsp; {{empDetails.employee.date_of_birth}}</mat-list-item>
+			</div>
+			<div class="col-sx-12 col-sm-6">
+				<mat-list-item><b>Gender:</b>&nbsp; {{empDetails.employee.gender | applicationStatus}}</mat-list-item>
+			</div>
+			<div class="col-sx-12 col-sm-6">
+				<mat-list-item><b>Permanent Address:</b>&nbsp; {{empDetails.employee.permanent_address}}</mat-list-item>
+			</div>
+			<div class="col-sx-12 col-sm-6">
+				<mat-list-item><b>Medical Card Number:</b>&nbsp; {{empDetails.master.medical_card_number}}</mat-list-item>
+			</div>
+			<div class="col-sx-12 col-sm-6">
+				<mat-list-item><b>PAN Number:</b>&nbsp; {{empDetails.master.pan_number}}</mat-list-item>
+			</div>
+			<div class="col-sx-12 col-sm-6">
+				<mat-list-item><b>ADHAR Number:</b>&nbsp; {{empDetails.master.adhaar_number}}</mat-list-item>
+			</div>
+			<div class="col-sx-12 col-sm-6">
+				<mat-list-item><b>EIS Number:</b>&nbsp; {{empDetails.master.eis_number}}</mat-list-item>
+			</div>
+			 
+		</mat-list>
+
+		<div class="col-sx-12 col-sm-12" style="padding: 0 30px">
+			<button mat-raised-button color="primary" (click)="estimate(empDetails.id)" style="margin-right: 5px;">Estimation And Admission </button>
+			<button mat-flat-button color="primary" type="button" (click)="profile(empDetails)">Profile</button>
+		</div>
+
+	
+	</mat-card>
+</div>

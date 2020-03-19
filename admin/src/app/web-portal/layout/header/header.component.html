@@ -1,0 +1,182 @@
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>COAL INDIA</title>
+  </head>
+  <style type="text/css">
+    .navbar-light .navbar-toggler-icon{
+      width: 30px;
+    }
+    .navbar-collapse{
+      box-shadow:none !important;
+    }
+    @media (max-width:768px){
+      .navbar-nav{
+        display: block !important;
+      }
+      .navbar{
+        display: block;
+        width: 100%;
+      }
+      .navbar-nav li{
+        margin:0 15px;
+      }
+      .profile_name{
+        width: 70px;
+      }
+      
+    }
+    @media (min-width:768px){
+      .after_login_nav .navbar-toggler-icon{
+        display: none;
+      }
+    }
+    @media (max-width:480px){
+      .profile_name{
+        width: 100%;
+      }
+      .login_drop_box.pull-right{
+        float: left !important;
+      }
+    }
+  </style>
+   <div *ngIf="is_logged_in==true">
+    <header class="header_sec after_login_head" style="background: url('assets/images/base.png') no-repeat center center;">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="header_inner">
+              <div class="header_inn_lt">
+                <img src="assets/images/cil-logo.png" alt="">
+              </div>
+              <div class="header_inn_rt">
+                <h1>CIL PORTAL FOR <br/> <span>MEDICAL</span> FACILITIES</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="nav_sec after_login_nav">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <nav class="navbar navbar-expand-lg navbar-light nav_lt ">
+              
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"><img src="assets/images/ham.png" alt=""></span>
+              </button>
+              <div class="clearfix"></div>
+
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto justify-content-end">
+                  <li class="nav-item active">
+                    <a class="nav-link" [routerLink]="['/']">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/empanelled-hospitals']">Empanelled Hospitals</a>
+                  </li> 
+                  <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/grievance']">Grievance</a>
+                  </li> 
+                  <li class="nav-item">
+                    <a class="nav-link" routerLink="/contact">Contact Us</a>
+                  </li> 
+                  <li class="nav-item">
+                    <a class="nav-link" routerLink="/faq">FAQ</a>
+                  </li>  
+                  <li class="nav-item">
+                    <div class="login_drop_box pull-right">
+                        <div class="login_drop_box after_login nav_rt pull-right" *ngIf="user_type=='6'" [matMenuTriggerFor]="employeeProfileMenu">
+                        <div class="profile_name pull-left">Welcome {{user_name}}</div>
+
+                        <mat-menu #employeeProfileMenu="matMenu" yPosition="below" class="login_drop">
+                            <button mat-menu-item routerLink="/employee/dashboard">Dashboard</button>
+                            <button mat-menu-item (click) = "logout()">Logout</button>
+                        </mat-menu>                       
+                        </div>
+                        <div class="login_drop_box after_login nav_rt pull-right" *ngIf="user_type=='5'" [matMenuTriggerFor]="employeeProfileMenu">
+                        <div class="profile_name pull-left">Welcome {{user_name}}</div>
+
+                        <mat-menu #employeeProfileMenu="matMenu" yPosition="below" class="login_drop">
+                            <button mat-menu-item routerLink="/hospital/dashboard">Dashboard</button>
+                            <button mat-menu-item (click) = "logout()">Logout</button>
+                        </mat-menu>                       
+                       </div>
+                    </div>
+                  </li>   
+                </ul>   
+              </div>
+            </nav>
+            </div>
+        </div>
+      </div>
+    </section>
+  </div>
+<!--
+  #####Without Login Header
+-->
+
+
+
+  <div *ngIf="is_logged_in != true">
+    <header class="header_sec" style="background: url('assets/images/base.png') no-repeat center center;">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="header_inner">
+              <div class="header_inn_lt">
+                <img src="assets/images/cil-logo.png" alt="">
+              </div>
+              <div class="header_inn_rt">
+                <h1>CIL PORTAL FOR <br/> <span>MEDICAL</span> FACILITIES</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="nav_sec">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <nav class="navbar navbar-expand-lg navbar-light nav_lt ">
+              
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"><img src="assets/images/ham.png" alt=""></span>
+              </button>
+
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto justify-content-end">
+                  <li class="nav-item active">
+                    <a class="nav-link" [routerLink]="['/']">Home <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/empanelled-hospitals']">Empanelled Hospitals</a>
+                  </li> 
+                  <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/grievance']">Grievance</a>
+                  </li> 
+                  <li class="nav-item">
+                    <a class="nav-link" routerLink="/contact">Contact Us</a>
+                  </li> 
+                  <li class="nav-item">
+                    <a class="nav-link" routerLink="/faq">FAQ</a>
+                  </li>  
+                  <li class="nav-item">
+                    <div class="login_drop_box pull-right">
+                        <a class="nav_rt" routerLink="/login" target="_blank">Login</a>
+                    </div>
+                  </li>   
+                </ul>   
+              </div>
+            </nav>
+            </div>
+        </div>
+      </div>
+    </section>
+  </div>

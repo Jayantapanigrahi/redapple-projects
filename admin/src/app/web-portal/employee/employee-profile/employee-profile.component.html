@@ -1,0 +1,347 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<section class="col-sm-10 side_nav_content col-sm-offset-2">
+	<div class="container">
+ 		<div class="col-sm-12">
+ 			<div class="registration_inner">
+ 				<h1 style="text-align:center;">Your Profile</h1>
+ 			</div>
+ 			<div *ngIf="ShowCounter">
+ 		    <h3>You can update your profile upto 
+ 		    	<span style="color:red; float: right;"><countdown-timer [end]="compareDate"></countdown-timer></span>
+ 		    </h3>
+ 			
+ 		    </div>
+ 		    <div *ngIf="!ShowCounter">
+ 		    <p style="color:red" >You can not update your profile as you have exceeded maximum time allowed</p>
+ 			</div>
+ 			<form *ngIf="fdVAl" [formGroup]="profileForm" (ngSubmit)="profileFormSubmit()">
+	 			<div class="reg_mid">
+					<div class="row">
+		 				<div class="col-sm-4 col-xs-12">
+		 					<div class="regis_box">
+		 						<p>Photograph of the executive</p>
+					 				<img style="object-fit: cover;" src={{testImagesource.img_executive}} alt="Test Image" width="100%" (click)="testImage1.click()"  onError="this.src='assets/images/upload_card.png'">
+							      <input #testImage1 type="file" formControlName="img_executive" (change)="importFile($event,'img_executive')" style="display:none" accept="image/*">
+		 					</div>
+		 				</div>
+
+		 				<div class="col-sm-4 col-xs-12">
+		 					<div class="regis_box">
+		 						<p>Photograph of the spouse</p>
+					 				<img style="object-fit: cover;" src={{testImagesource.img_spouse}} alt="Test Image" width="100%" (click)="testImage2.click()"  onError="this.src='assets/images/upload_card.png'">
+							      <input #testImage2 type="file" formControlName="img_spouse" (change)="importFile($event,'img_spouse')" style="display:none" accept="image/*">
+		 					</div>
+		 				</div>
+
+		 				<div class="col-sm-4 col-xs-12">
+		 					<div class="regis_box">
+		 						<p>Photograph of the nominee if any</p>
+					 				<img style="object-fit: cover;" src={{testImagesource.img_nominee}} alt="Test Image" width="100%" (click)="testImage3.click()"  onError="this.src='assets/images/upload_card.png'">
+							      <input #testImage3 type="file" formControlName="img_nominee" (change)="importFile($event,'img_nominee')" style="display:none" accept="image/*">
+		 					</div>
+		 				</div>
+		 				
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+										  <mat-label>First name</mat-label>
+										  <input matInput type="text" formControlName="firstname" placeholder="Your first name" >
+									 </mat-form-field>
+									 <p class="validation_error" *ngIf="profileForm.get('firstname').hasError('required')">First name is required</p>
+		 						</div>
+		 					</div>
+		 				</div>
+
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+										  <mat-label>Last name</mat-label>
+										  <input matInput type="text" formControlName="lastname" placeholder="Your last name">
+									 </mat-form-field>
+									 <p class="validation_error" *ngIf="profileForm.get('lastname').hasError('required')">Last name is required</p>
+		 						</div>
+		 					</div>
+		 				</div>
+                        <div class="col-sm-6">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Company along with Mine/Establishment / Unit where joined</mat-label>
+		                               <mat-select formControlName="company_id">
+										<mat-option *ngFor="let group of companyList" [value]="group.id">{{ group.name }}</mat-option>
+									    </mat-select>
+		                             </mat-form-field>
+		                              <div *ngIf="profileForm.get('company_id').hasError('required')">Company is required</div>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-md-4 col-sm-6">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							<mat-form-field>
+		 								<mat-label>Gender</mat-label>
+										<mat-select formControlName="gender">
+											<mat-option >Select</mat-option>
+											<mat-option value="male">Male</mat-option>
+											<mat-option value="female">Female</mat-option>
+											<mat-option value="transgender">Transgender</mat-option>
+										</mat-select>
+		                            </mat-form-field>
+		                            <p class="validation_error" *ngIf="profileForm.get('gender').hasError('required')">Gender is required</p>
+		 						</div>
+		 					</div>
+	 				    </div>
+
+	 					<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+									<mat-form-field>
+										<mat-label>Date of birth</mat-label>
+										<input matInput formControlName="date_of_birth" [matDatepicker]="picker2" placeholder="Date of birth" required autocomplete="off">
+										<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+										<mat-datepicker #picker2 disabled="false"></mat-datepicker>
+									</mat-form-field>
+									<p class="validation_error" *ngIf="profileForm.get('date_of_birth').hasError('required')">Date of birth is required</p>
+		 						</div>
+		 					</div>
+		 				</div> 
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Medical card number</mat-label>
+		                                <input matInput type="text" formControlName="medical_card_number" placeholder="medical Card Number">
+		                             </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Employee ID</mat-label>
+		                                <input matInput type="text" formControlName="employee_id" placeholder="Employee id">
+		                             </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>EIS number</mat-label>
+		                                <input matInput type="text" formControlName="eis_number" placeholder="EIS number">
+		                             </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Bank account number</mat-label>
+		                                <input matInput type="text" formControlName="bank_account_number" placeholder="Bank account number">
+		                             </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>IFSC code</mat-label>
+		                                <input matInput type="text" formControlName="ifsc_code" placeholder="IFSC code">
+		                             </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Bank name</mat-label>
+		                                <input matInput type="text" formControlName="bank_name" placeholder="Bank name">
+		                             </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Pan number</mat-label>
+		                                <input matInput type="text" formControlName="pan_number" placeholder="Pan number">
+		                             </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Aadhaar number</mat-label>
+		                                <input matInput type="text" formControlName="adhaar_number" placeholder="Adhaar number">
+		                             </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Life certificate ID</mat-label>
+		                                <input matInput type="text" formControlName="life_certificate_id" placeholder="Life certificate ID">
+		                             </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+
+		                <div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Name of spouse</mat-label>
+		                                <input matInput type="text" formControlName="spouse_name" placeholder="Spouse name">
+		                             </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+									<mat-form-field>
+										<mat-label>Joining date</mat-label>
+										<input matInput formControlName="date_of_joining" [matDatepicker]="picker" placeholder="Joining date" autocomplete="off" [max]="today" readonly="readonly">
+										<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+										<mat-datepicker #picker disabled="false"></mat-datepicker>
+									</mat-form-field>
+									<p class="validation_error" *ngIf="profileForm.get('date_of_joining').hasError('required')">Date of joining is required</p>
+		 						</div>
+		 					</div>
+		 				</div> 
+
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+									<mat-form-field>
+										<mat-label>Retierment date</mat-label>
+										<input matInput formControlName="date_of_retierment" [matDatepicker]="pickerR" placeholder="Retierment Date" autocomplete="off" [max]="today" readonly="readonly">
+										<mat-datepicker-toggle matSuffix [for]="pickerR"></mat-datepicker-toggle>
+										<mat-datepicker #pickerR disabled="false"></mat-datepicker>
+									</mat-form-field>
+									<p class="validation_error" *ngIf="profileForm.get('date_of_retierment').hasError('required')">Date of Retierment is required</p>
+		 						</div>
+		 					</div>
+		 				</div> 
+
+		 				<div class="col-sm-6">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Name of the nominee</mat-label>
+		                                <input matInput type="text" formControlName="nominee_name" placeholder="">
+		                             </mat-form-field>
+		                             <p class="validation_error" *ngIf="profileForm.get('nominee_name').hasError('required')">Nominee name is required</p>
+		 						</div>
+		 					</div>
+		 				</div>
+
+		 				<div class="col-sm-6">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Relation of the nominee</mat-label>
+		                                <input matInput type="text" formControlName="nominee_relationship" placeholder="">
+		                             </mat-form-field>
+		                              <p class="validation_error" *ngIf="profileForm.get('nominee_relationship').hasError('required')">Nominee relationship is required</p>
+		 						</div>
+		 					</div>
+		 				</div>
+
+		 				<div class="col-sm-6">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Permanent address</mat-label>
+									    <textarea matInput type="textarea" formControlName="permanent_address" placeholder=""></textarea>
+									  </mat-form-field>
+									  <p class="validation_error" *ngIf="profileForm.get('permanent_address').hasError('required')">Permanent address is required</p>
+		 						</div>
+		 					</div>
+		 				</div>
+
+		 				<div class="col-sm-6">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Present address</mat-label>
+									    <textarea matInput matInput type="textarea" formControlName="present_address" placeholder=""></textarea>
+									  </mat-form-field>
+									  <p class="validation_error" *ngIf="profileForm.get('present_address').hasError('required')">Present address is required</p>
+		 						</div>
+		 					</div>
+		 				</div>
+
+		 				<div class="col-sm-12">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+		 							 	<mat-label>Address of the nominee</mat-label>
+									    <textarea matInput matInput type="textarea" formControlName="nominee_address" placeholder=""></textarea>
+									    <p class="validation_error" *ngIf="profileForm.get('nominee_address').hasError('required')">Nominee address is required</p>
+									  </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				
+		 				<div class="col-sm-12">
+		 					
+		 					<div class="row">
+		 						<div class="col-sm-4">
+		 							<div class="signa_sec">
+		 								<div class="form-group">
+			 							 	<div class="regis_box">
+						 						<p>Signature of executive</p>
+									 			 <img style="object-fit: cover;" src={{testImagesource.sign_executive}} alt="Test Image" width="100%" (click)="testImage4.click()"  onError="this.src='assets/images/upload_card.png'">
+											      <input #testImage4 type="file" formControlName="sign_executive" (change)="importFile($event,'sign_executive')" style="display:none" accept="image/*">
+						 					</div>
+		 						        </div>
+		 							</div>
+		 						</div>
+		 						<div class="col-sm-4">
+		 							<div class="signa_sec">
+		 								<div class="form-group">
+				 							 <div class="regis_box">
+						 						<p>Signature of spouse</p>
+									 				<img style="object-fit: cover;" src={{testImagesource.sign_spouse}} alt="Test Image" width="100%" (click)="testImage5.click()"  onError="this.src='assets/images/upload_card.png'">
+											      <input #testImage5 type="file" formControlName="sign_spouse" (change)="importFile($event,'sign_spouse')" style="display:none" accept="image/*">
+						 					</div>
+		 						        </div>
+		 							</div>
+		 						</div>
+		 						<div class="col-sm-4">
+		 							<div class="signa_sec">
+		 								<div class="form-group">
+				 							 <div class="regis_box">
+						 						<p>Signature of nominee</p>
+									 				<img style="object-fit: cover;" src={{testImagesource.sign_nominee}} alt="Test Image" width="100%" (click)="testImage6.click()"  onError="this.src='assets/images/upload_card.png'">
+											      <input #testImage6 type="file" formControlName="sign_nominee" (change)="importFile($event,'sign_nominee')" style="display:none" accept="image/*">
+						 					</div>
+		 						        </div>
+		 							</div>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-12 text-right">
+		 					<button class="submit_btn" type="ngSubmit">Update</button> 
+		 				</div>
+	 				</div>
+		 		</div>
+	 		</form>
+ 		</div>
+ 	</div>
+</section>

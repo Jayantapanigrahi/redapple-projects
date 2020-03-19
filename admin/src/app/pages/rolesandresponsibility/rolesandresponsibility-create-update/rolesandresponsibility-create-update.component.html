@@ -1,0 +1,85 @@
+<form (ngSubmit)="save()" [formGroup]="form">
+  <div fxLayout="row" fxLayoutAlign="start center" mat-dialog-title>
+    <!-- <img *ngIf="form.get('imageSrc').value" [src]="form.get('imageSrc').value" class="avatar mr-5"> -->
+
+    <h2 *ngIf="form.get('employee_id').value"
+        class="headline m-0"
+        fxFlex="auto">{{ form.get('employee_id').value }}</h2>
+    <h2 *ngIf="!form.get('employee_id').value"
+        class="headline m-0"
+        fxFlex="auto">New Roles And Responsibility</h2>
+
+    <!-- <button [matMenuTriggerFor]="settingsMenu" class="text-secondary" mat-icon-button type="button">
+      <mat-icon [icIcon]="icMoreVert"></mat-icon>
+    </button> -->
+
+    <button class="text-secondary" mat-dialog-close mat-icon-button type="button">
+      <mat-icon [icIcon]="icClose"></mat-icon>
+    </button>
+  </div>
+
+  <mat-divider class="-mx-6 text-border"></mat-divider>
+
+  <mat-dialog-content *ngIf="companyList" fxLayout="column">
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field class="mt-4" fxFlex>
+        <mat-label>Employee Code</mat-label>
+        <input cdkFocusInitial formControlName="employee_id" matInput required>
+        <mat-icon [icIcon]="icPerson" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+      <mat-form-field class="mt-4" fxFlex>
+        <mat-label>Mobile Number</mat-label>
+        <input cdkFocusInitial formControlName="mobile" matInput required>
+        <mat-icon [icIcon]="icPerson" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+      <mat-form-field class="mt-4" fxFlex>
+        <mat-label>Email Id</mat-label>
+        <input cdkFocusInitial formControlName="email" matInput required>
+        <mat-icon [icIcon]="icPerson" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field class="mt-6" fxFlex>
+        <mat-label>First Name</mat-label>
+        <input cdkFocusInitial formControlName="firstname" matInput required>
+        <mat-icon [icIcon]="icMyLocation" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+      <mat-form-field class="mt-6" fxFlex>
+        <mat-label>Last Name</mat-label>
+        <input cdkFocusInitial formControlName="lastname" matInput required>
+        <mat-icon [icIcon]="icPerson" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+    </div>
+    <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="24px">
+      <mat-form-field class="mt-4" fxFlex>
+              <mat-label>Select Department</mat-label>
+              <mat-select cdkFocusInitial formControlName="department" required>
+                <mat-option value="medical_department">Medical</mat-option>
+                <mat-option value="accounts_department">Accounts</mat-option>
+                <mat-option value="welfare_department">Welfare</mat-option>
+              </mat-select>            
+      </mat-form-field>
+      <mat-form-field class="mt-4" fxFlex>
+        <mat-label>Designation</mat-label>
+              <mat-select  cdkFocusInitial formControlName="designation" required>
+                <mat-option value="admin">Admin</mat-option>
+                <mat-option value="data_entry">Data Entry</mat-option>
+              </mat-select> 
+        <mat-icon [icIcon]="icPerson" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+      <mat-form-field class="mt-4" fxFlex>
+              <mat-label>Select Company</mat-label>
+              <mat-select formControlName="company_id">
+                    <mat-option *ngFor="let group of companyList" [value]="group.id">{{ group.name }}</mat-option>
+                    </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">CANCEL</button>
+    <button *ngIf="isCreateMode()" color="primary" mat-button type="submit" [disabled]="form.invalid">CREATE Roles And Responsibility</button>
+    <button *ngIf="isUpdateMode()" color="primary" mat-button type="submit" [disabled]="form.invalid">UPDATE Roles And Responsibility</button>
+  </mat-dialog-actions>
+</form>
+

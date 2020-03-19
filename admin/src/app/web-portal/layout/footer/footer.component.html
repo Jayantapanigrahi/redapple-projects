@@ -1,0 +1,50 @@
+<footer class="footer_sec">
+      <div class="foot_up">
+        <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-xl-4 col-md-6 col-sm-6 col-">
+            <div class="footer_st">
+              <img src="assets/images/footer_logo.png" alt="">
+            </div>
+          </div>
+          <div class="col-lg-4 col-xl-4 col-md-6 col-sm-6 col-">
+            <div class="footer_st">
+              <h6>Coal India Limited</h6>
+              <p>Coal Bhawan Premise No - 04 Mar,<br/>
+Plot No - AF 3, Action Area - 1A,<br/>
+Newtown, Rajarhat<br/>
+kolkata - 700156</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-xl-4 col-md-12 col-sm-6 col-">
+            <div class="footer_st">
+              <h6>Links</h6>
+              <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="">Empanelled Hospital</a></li>
+                <li><a href="">Grievance</a></li>
+                <li><a  routerLink="/contact">Contact Us</a></li>
+                <li><a routerLink="/faq">FAQ</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="foot_dwn">
+        <p>Copyright &copy;CIL 2019 All rights reserved</p>
+      </div>
+    </footer>
+
+<script type="text/javascript">    
+
+  $(window).scroll(function() {
+    if ($(this).scrollTop() > 200){  
+        $('.nav_sec').addClass("sticky");
+    }
+    else{
+        $('.nav_sec').removeClass("sticky");
+    }
+});
+
+</script>

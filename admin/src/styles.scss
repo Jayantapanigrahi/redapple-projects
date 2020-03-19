@@ -1,0 +1,65 @@
+@import "~simplebar/dist/simplebar.css";
+@import "~highlight.js/styles/androidstudio.css";
+// Vex Core
+@import "./@vex/styles/core";
+
+/*
+  You can override any CSS Variable or style here
+  Example:
+
+  :root {
+   --sidenav-background: #333333;
+  }
+
+  All possible variables can be found in @vex/styles/core or by simply inspecting the element you want to change
+  in Chrome/Firefox DevTools
+*/
+.side_nav a,
+.side_nav a .mat-list-item-content{
+	color: #fff;
+	/*margin-bottom: 15px;*/
+	text-decoration:none;
+   
+}
+.side_nav a .mat-list-item-content:hover{
+  background: rgba(0,0,0,0.5);
+}
+.side_nav a .mat-list-item-content{
+  padding: 10px;
+  opacity: 0.7
+}
+.side_nav .active  a .mat-list-item-content{
+  opacity: 1;
+}
+.side_nav a:hover,
+.side_nav a .mat-list-item-content:hover,
+.side_nav a:focus,
+.side_nav a .mat-list-item-content:focus{
+  text-decoration:none;
+  opacity: 1;
+}
+.alert{
+  position: absolute !important;
+  right: 43px;
+  top: 45%;
+  z-index: 9999;
+}
+.alert-danger{
+  top:30%;
+}
+.red-snackbar{
+  background:red !important;
+}
+.mat-expansion-indicator::after{
+  border-color: #666
+}
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar{
+  background-color: #f00 !important;
+}
+.mat-ink-bar{
+  height: 6px !important;
+}
+.mat-tab-label-active{
+  background: #ff9e80 !important;
+  color: #000 !important;
+}

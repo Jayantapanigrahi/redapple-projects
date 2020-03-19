@@ -1,0 +1,585 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<section class="col-sm-10 side_nav_content col-sm-offset-2">
+<!-- Annexure B-1 -->
+	<div class="container text-center">
+		<h2>Claim for employee OPD</h2>
+		<h4>Annexure B-1</h4>
+		<p>Contributory Scheme for Post Retirement Medical Facilities for Expenses (Clause 6.1)</p>
+		<p>CLAIM FORM FOR PAYMENT OF OUTDOOR TREATMENT EXPENSES</p>
+	</div>
+	<h1 style="color:red; text-align: center;">Coming Soon</h1>
+<form (ngSubmit)="save()" [formGroup]="opdClaimForm" *ngIf="somevalue">
+	<div class="container">
+
+		<!-- <div class="row">
+			<div class="col-xs-12 col-sm-3 line_height_55">
+				Period of Claim: Half year ending
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<mat-form-field>
+							<input matInput [matDatepicker]="periodFrom" placeholder="Addmission Date" required autocomplete="off">
+										<mat-datepicker-toggle matSuffix [for]="periodFrom"></mat-datepicker-toggle>
+										<mat-datepicker #periodFrom disabled="false"></mat-datepicker>
+				</mat-form-field>
+
+			</div>
+			<div class="col-xs-12 col-sm-1 text-center line_height_55">TO</div>
+			<div class="col-xs-12 col-sm-4">
+				<mat-form-field>
+							<input matInput [matDatepicker]="periodTo" placeholder="Addmission Date" required autocomplete="off">
+										<mat-datepicker-toggle matSuffix [for]="periodTo"></mat-datepicker-toggle>
+										<mat-datepicker #periodTo disabled="false"></mat-datepicker>
+				</mat-form-field>
+			</div>
+		</div> -->
+
+		<div class="row">
+			<!-- <div class="col-xs-12 col-sm-12">
+				<mat-form-field class="full_width">
+					<mat-label>Name & grade of the retired executove/spouse</mat-label>
+					<input type="text" matInput value="">
+				</mat-form-field>
+			</div> -->
+			<div class="col-xs-12 col-sm-6">
+				<mat-form-field class="full_width">
+					<mat-label>EIS No.</mat-label>
+					<input type="text" matInput formControlName="eis_no">
+				</mat-form-field>
+			</div>
+			<div class="col-xs-12 col-sm-6">
+				<mat-form-field class="full_width">
+					<mat-label>Registration No. of Medical Card</mat-label>
+					<input type="text" matInput formControlName="medical_card_reg_no">
+				</mat-form-field>
+			</div>
+			<!-- <div class="col-xs-12 col-sm-4">
+				<mat-form-field class="full_width">
+					<mat-label>Fixed Amount for Outdoor/Damiciliary treatment</mat-label>
+					<input type="number" matInput value="">
+					<mat-hint>Based on date of retirement (Rupees)</mat-hint>
+				</mat-form-field>
+			</div> -->
+			<div class="col-xs-12 col-sm-6">
+				<mat-form-field class="full_width">
+					<mat-label>Amount Claimed (Rupees/Paise)*</mat-label>
+					<input type="number" [min]='1' (keypress)="omit_text($event)" matInput value="" formControlName="amount_claimed">
+				</mat-form-field>
+			</div>
+			<div class="col-xs-12 col-sm-6">
+				<mat-form-field class="full_width">
+					<mat-label>Bank Account Number</mat-label>
+					<input type="text" matInput value="" formControlName="bank_name_branch">
+					<mat-hint>Savings bank account number where the amount shall be credited</mat-hint>
+				</mat-form-field>
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<mat-form-field class="full_width">
+					<mat-label>Present Address at which Cheque is to be sent</mat-label>
+					<input type="text" matInput value="" formControlName="cheque_mailing_address">
+				</mat-form-field>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12">
+				<p class="text-center">(To be certified by the retired executive)</p>
+				<ol>
+					<li>
+						The statements made in the claim are true to the best of my knowledge and belief
+					</li>
+					<!-- <li>
+						I am a member of Contributory Scheme for Post Retirement
+						<mat-form-field>
+							<input matInput [matDatepicker]="medicalCardValid" placeholder="Addmission Date" required autocomplete="off">
+										<mat-datepicker-toggle matSuffix [for]="medicalCardValid"></mat-datepicker-toggle>
+										<mat-datepicker #medicalCardValid disabled="false"></mat-datepicker>
+				        </mat-form-field>
+					</li> -->
+					<li>
+						I continue to fulfill the conditions of eligibility for availing the benefits under the scheme
+					</li>
+					<li>
+						The Medical expenses were incurred for self/spouse
+					</li>
+					<li>
+						I fully understand that the Company may refuse/terminate my membership of the scheme at any time without any notice and without assigning any reason.
+					</li>
+					<li>
+						Certified that myself and my spouse are not availing any medical facilities from or through the Central/State Govt./Public Sector Undertaking/Quasi Govt. Body or any Medical Insurance Company either in individual capacity or as dependent
+					</li>
+				</ol>
+			</div>
+
+			<!-- <div class="col-xs-12 col-sm-6">
+				<mat-form-field>
+				<input matInput [matDatepicker]="submitDate" placeholder="Choose a date" required autocomplete="off">
+				<mat-datepicker-toggle matSuffix [for]="submitDate">
+				</mat-datepicker-toggle>
+				<mat-datepicker #submitDate disabled="false"></mat-datepicker>
+				</mat-form-field>
+			</div> -->
+			<!-- <div class="col-xs-12 col-sm-8">
+				<div class="row">
+				<div class="col-xs-16 col-md-6 col-sm-6">
+					<p>Signature Pad</p>
+					<canvas #sigPad width="300" height="150" (mousedown)="onMouseDown($event)"
+						  (mousemove)="onMouseMove($event)"></canvas>
+						  <br/>
+						  <button  mat-flat-button color="primary" (click)="clear()" type="button" style="margin-right:5px;">Clear</button>
+						  <button  mat-flat-button color="primary" (click)="saveSign()" type="button">Ok</button>
+
+						  <br/>
+						  <br/>
+				</div>
+				<div class="col-xs-16 col-md-6 col-sm-6">
+					<p>Signature of patient</p>
+					<img *ngIf="user_sign" [src]="user_sign">
+				</div>
+			  </div>
+			</div> -->
+		</div>
+		<!-- <div class="row">
+			<div class="col-xs-12 col-sm-6">
+				The claim has been scrutinized and recommended for payment of Rs
+			</div>
+			<div class="col-xs-12 col-sm-6">
+				<mat-form-field>
+					<mat-label>Rs. in number</mat-label>
+					<input type="number" matInput value="">
+				</mat-form-field>
+				<mat-form-field>
+					<mat-label>Rupees in word</mat-label>
+					<input type="text" matInput value="">
+				</mat-form-field>
+				Only
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<mat-form-field>
+					<mat-label>Chief of Medical Service</mat-label>
+					<input type="text" matInput value="">
+				</mat-form-field>
+			</div>
+		</div> -->
+		<hr>
+		<!-- <div class="row">
+			<div class="col-xs-12 col-sm-12">
+				<p class="text-center">
+					(To be filled in by the Accounts Department)
+				</p>
+				<p>
+					Claim passed for payment of
+					<mat-form-field>
+						<mat-label>Rs.</mat-label>
+						<input type="number" matInput value="">
+					</mat-form-field>
+					<mat-form-field>
+						<mat-label>Rupees (in word)</mat-label>
+						<input type="text" matInput value="">
+					</mat-form-field>
+				</p>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<mat-form-field class="full_width">
+					<mat-label>Account</mat-label>
+					<input type="number" matInput value="">
+				</mat-form-field>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<mat-form-field class="full_width">
+					<mat-label>Sr. A.O/A.O.</mat-label>
+					<input type="number" matInput value="">
+				</mat-form-field>
+			</div>
+			<div class="col-xs-12 col-sm-4">
+				<mat-form-field>
+					<input matInput [matDatepicker]="submitAccountDate" placeholder="Choose a date" required autocomplete="off">
+					<mat-datepicker-toggle matSuffix [for]="submitAccountDate">
+					</mat-datepicker-toggle>
+					<mat-datepicker #submitAccountDate disabled="false"></mat-datepicker>
+				</mat-form-field>
+			</div>
+		</div> -->
+	</div>
+
+
+	<div class="container text-center">
+		<h4>DETAILS OF THE AMOUNT CLAIMED</h4>
+	</div>
+	<div class="container" style="margin-bottom: 25px;">
+		<div class="col-xs-12 col-sm-12 table-responsive">
+			<table class="table">
+				<tbody>
+					<tr>
+						<th width="30">1.</th>
+						<th>CONSULTATION FEES</th>
+						<th class="text-right" colspan="2"><button style="min-width: 175px;" mat-flat-button color="primary" (click)="addConsultation()" type="button">Add Consultation Field</button></th>
+					</tr>
+					<tr *ngIf="consultatTab">
+						<td></td>
+						<td width="316">Date</td>
+						<td width="273">Amount</td>
+						<td>Invoice</td>
+					</tr>
+					<tr formArrayName="consultationArr">
+								<td colspan="4" style="padding: 0;">
+									<table width="100%" *ngFor="let item of consultation.controls; let pointIndex=index" [formGroupName]="pointIndex">
+										<tr>
+											<td>{{pointIndex+1}})</td>
+											<td>
+												<mat-form-field class="full_width">
+													<input matInput [matDatepicker]="consultationDate" placeholder="Choose a date"  autocomplete="off" formControlName="consultation_date" readonly="readonly" [max]="maxDate">
+														<mat-datepicker-toggle matSuffix [for]="consultationDate">
+														</mat-datepicker-toggle>
+														<mat-datepicker #consultationDate disabled="false"></mat-datepicker>
+													</mat-form-field>
+											</td>
+											<td>
+												<mat-form-field class="full_width">
+													<input matInput type="number" placeholder="amount" [min]='0' formControlName="consultation_amount" (change)="getConsultationSum()" (keyup)="getConsultationSum()" (keypress)="omit_text($event)">
+												</mat-form-field>
+											</td>
+											<td>
+
+													<input type="file" formControlName="invoice" (change)="importConsultationFile($event,pointIndex)" (keyup)="importConsultationFile($event,pointIndex)">
+
+											<p>.pdf .jpg .JPEG .png file only(max 20MB)</p>
+											</td>
+                                            <td>
+											<p class="close_btn">
+											<button class="float-button" type="button" (click)="deleteConsultation(pointIndex)">X</button>
+										    </p>
+										    </td>
+										</tr>
+									</table>
+								</td>
+
+							</tr>
+				</tbody>
+				<tfoot>
+					<tr *ngIf="consultatTab">
+						<th colspan="3">TOTAL 1.</th>
+						<th><mat-form-field class="full_width">
+										<input matInput type="number" placeholder="amount" [min]='0' formControlName="total_consultation_amount" readonly="readonly">
+									</mat-form-field></th>
+						
+					</tr>
+				</tfoot>
+			</table>
+
+			<table class="table">
+				<tbody>
+					<tr>
+						<th width="30">2.</th>
+						<th>INJECTION ADMINISTRATION FEES</th>
+						<th class="text-right" colspan="2"><button style="min-width: 175px;" mat-flat-button color="primary" (click)="addInjection()" type="button">Add Injection Field</button></th>
+
+					</tr>
+					<tr *ngIf="injectionTab">
+						<td></td>
+						<td>Date</td>
+						<td>Amount</td>
+						<td></td>
+
+					</tr>
+					<tr formArrayName="injectionArr">
+								<td colspan="4" style="padding: 0;">
+									<table width="100%" *ngFor="let item of injection.controls; let pointIndex=index" [formGroupName]="pointIndex">
+										<tr>
+											<td>{{pointIndex+1}})</td>
+											<td>
+												<mat-form-field class="full_width">
+													<input matInput [matDatepicker]="injectionDate" placeholder="Choose a date"  autocomplete="off" formControlName="injection_date" readonly="readonly" [max]="maxDate">
+														<mat-datepicker-toggle matSuffix [for]="injectionDate">
+														</mat-datepicker-toggle>
+														<mat-datepicker #injectionDate disabled="false"></mat-datepicker>
+													</mat-form-field>
+											</td>
+											<td>
+												<mat-form-field class="full_width">
+													<input matInput type="number" placeholder="amount" [min]='0' formControlName="injection_amount" (change)="getInjectionSum()"  (keyup)="getInjectionSum()" (keypress)="omit_text($event)" >
+												</mat-form-field>
+											</td>
+											<td>
+
+													<input type="file" formControlName="invoice" (change)="importInjectionFile($event,pointIndex)"(keyup)="importInjectionFile($event,pointIndex)">
+													<p>.pdf .jpg .JPEG .png file only(max 20MB)</p>
+											</td>
+                                            <td>
+											<p class="close_btn">
+											<button class="float-button" type="button" (click)="deleteInjection(pointIndex)">X</button>
+										    </p>
+										    </td>
+
+											
+										</tr>
+									</table>
+								</td>
+							</tr>
+				</tbody>
+				<tfoot>
+					<tr *ngIf="injectionTab">
+						<th colspan="3">TOTAL 2.</th>
+						<th><mat-form-field class="full_width">
+										<input matInput type="number" placeholder="amount" [min]='0' formControlName="total_injection_amount" readonly="readonly">
+									</mat-form-field>
+									</th>
+						
+					</tr>
+				</tfoot>
+			</table>
+
+			<table class="table">
+				<tbody>
+					<tr>
+						<th width="30">3.</th>
+						<th>MEDICINES PURCHASED FORM MARKET</th>
+						<th class="text-right" colspan="2"><button style="min-width: 175px;" mat-flat-button color="primary" (click)="addMedicine()" type="button">Add Medicine Field</button></th>
+					</tr>
+					<tr *ngIf="medicineTab">
+						<td></td>
+						<td>Date</td>
+						<td>Amount</td>
+						<td></td>
+					</tr>
+					<tr formArrayName="medicineArr">
+								<td colspan="4" style="padding: 0;">
+									<table width="100%" *ngFor="let item of medicine.controls; let pointIndex=index" [formGroupName]="pointIndex">
+										<tr>
+											<td>{{pointIndex+1}})</td>
+											<td>
+												<mat-form-field class="full_width">
+													<input matInput [matDatepicker]="medicinesDate" placeholder="Choose a date"  autocomplete="off" formControlName="medicine_date" readonly="readonly" [max]="maxDate">
+														<mat-datepicker-toggle matSuffix [for]="medicinesDate">
+														</mat-datepicker-toggle>
+														<mat-datepicker #medicinesDate disabled="false"></mat-datepicker>
+													</mat-form-field>
+											</td>
+											<td>
+												<mat-form-field class="full_width">
+													<input matInput type="number" placeholder="amount" [min]='0' formControlName="medicine_amount" (change)="getMedicineSum()" (keyup)="getMedicineSum()" (keypress)="omit_text($event)">
+												</mat-form-field>
+											</td>
+											<td>
+											<input type="file" formControlName="invoice" (change)="importMedicineFile($event,pointIndex)" (keyup)="importMedicineFile($event,pointIndex)">
+											<p>.pdf .jpg .JPEG .png file only(max 20MB)</p>
+											</td>
+                                            <td>
+											<p class="close_btn">
+											<button class="float-button" type="button" (click)="deleteMedicine(pointIndex)">X</button>
+										    </p>
+										    </td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+				</tbody>
+				<tfoot>
+					<tr *ngIf="medicineTab">
+						<th colspan="3">TOTAL 3.</th>
+						<th><mat-form-field class="full_width">
+										<input matInput type="number" placeholder="amount" [min]='0' formControlName="total_medicine_amount" readonly="readonly">
+									</mat-form-field></th>
+						
+					</tr>
+					<tr>
+						<th width="30">A.</th>
+						<th colspan="2">TOTAL (1+2+3)</th>
+						<th>
+							<mat-form-field class="full_width">
+										<input matInput type="number" placeholder="amount" [min]='0' formControlName="total_sum_a" value="{{secASum}}" readonly="readonly">
+									</mat-form-field>
+						</th>
+
+					</tr>
+				</tfoot>
+			</table>
+
+			<table class="table">
+				<tbody>
+					<tr>
+						<th width="30">4.</th>
+						<th>PATHOLOGICAL/OTHER TESTS</th>
+						<th class="text-right" colspan="2"><button style="min-width: 175px;" mat-flat-button color="primary" (click)="addPatho()" type="button">Add Pathology Field</button></th>
+					</tr>
+					<tr *ngIf="pathoTab">
+						<td></td>
+						<td>Name of the test</td>
+						<td>Amount</td>
+						<td></td>
+					</tr>
+					<tr formArrayName="pathoArr">
+								<td colspan="4" style="padding: 0;">
+									<table width="100%" *ngFor="let item of patho.controls; let pointIndex=index" [formGroupName]="pointIndex">
+										<tr>
+											<td>{{pointIndex+1}})</td>
+											<td>
+												<mat-form-field class="full_width">
+													<input matInput type="text" placeholder="Test name" formControlName="patho_name" maxlength="50">
+													
+													</mat-form-field>
+											</td>
+											<td>
+												<mat-form-field class="full_width">
+													<input matInput type="number" placeholder="amount" [min]='0' formControlName="patho_amount" (change)="getPathoSum()" (keypress)="omit_text($event)" (keyup)="getPathoSum()">
+												</mat-form-field>
+											</td>
+											<td>
+											<input type="file" formControlName="invoice" (change)="importPathologyFile($event,pointIndex)" (keyup)="importPathologyFile($event,pointIndex)">
+											<p>.pdf .jpg .JPEG .png file only(max 20MB)</p>
+											</td>
+                                            <td>
+											<p class="close_btn">
+											<button class="float-button" type="button" (click)="deletePatho(pointIndex)">X</button>
+										    </p>
+										    </td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+				</tbody>
+				<tfoot>
+					<tr >
+						<th width="30">B.</th>
+						<th colspan="2">TOTAL 4.</th>
+						<th width= "425">
+							<mat-form-field class="full_width">
+										<input matInput type="number" placeholder="amount" [min]='0' formControlName="total_patho_amount" readonly="readonly">
+									</mat-form-field>
+						</th>
+					</tr>
+				</tfoot>
+			</table>
+
+			<table class="table">
+				<tbody>
+					<tr>
+						<th width="30">5.</th>
+						<th>ACCOMMODATION CHARGES FOR THE PERIOD</th>
+						
+						<th style="padding-top: 25px;" width= "425">
+							<mat-form-field class="full_width">
+								<mat-label>Rs.</mat-label>
+								<input type="number" matInput formControlName="accommodation_amount" readonly="readonly">
+							</mat-form-field>
+						</th>
+					</tr>
+					<!-- <tr>
+						<td colspan="2"></td>
+						<td>Rs.</td>
+					</tr> -->
+
+					<tr>
+						<td></td>
+						<td colspan="3">
+							<mat-form-field class="full_width">
+							<input matInput ng-model="date1" [matDatepicker]="accommodationDateFrom" placeholder="Date From"  autocomplete="off" formControlName="accommodation_date_from" readonly="readonly" (dateChange)="getSumAccomodation()" [max]="maxDate">
+								<mat-datepicker-toggle matSuffix [for]="accommodationDateFrom">
+								</mat-datepicker-toggle>
+								<mat-datepicker #accommodationDateFrom disabled="false"></mat-datepicker>
+							</mat-form-field>
+							<br>
+							<mat-form-field class="full_width">
+							<input matInput [matDatepicker]="accommodationDateTo" placeholder="Date To"  autocomplete="off" formControlName="accommodation_date_to" readonly="readonly" (dateChange)="getSumAccomodation()" [max]="maxDate" [min]="opdClaimForm.controls.accommodation_date_from.value">
+								<mat-datepicker-toggle matSuffix [for]="accommodationDateTo">
+								</mat-datepicker-toggle>
+								<mat-datepicker #accommodationDateTo disabled="false"></mat-datepicker>
+							</mat-form-field>
+							<br>
+							<mat-form-field class="full_width">
+								<mat-label>Rs. per day</mat-label>
+								<input type="number" matInput formControlName="accommodation_rate" (change)="getSumAccomodation()" (keypress)="omit_text($event)" (keyup)="getSumAccomodation()">
+							</mat-form-field>
+						</td>
+
+						<!-- <td style="vertical-align: bottom;">
+							<mat-form-field class="full_width">
+								<mat-label>Rs.</mat-label>
+								<input type="number" matInput formControlName="accommodation_amount" readonly="readonly">
+							</mat-form-field>
+						</td> -->
+
+					</tr>
+
+				</tbody>
+
+			</table>
+
+			<table class="table">
+				<tbody>
+					<tr>
+						<th width="30">6.</th>
+						<th colspan="2" width="255">SURGICAL OPERATION OR CONFINEMENT CHARGES</th>
+						<th style="padding-top: 25px;" width= "425">
+							<mat-form-field class="full_width">
+								<mat-label>Rs.</mat-label>
+								<input type="number" matInput formControlName="surgery_amount" [min]='0' (change)="sumC()" (keypress)="omit_text($event)" (keyup)="sumC()"s>
+							</mat-form-field>
+						</th>
+					</tr>
+					<tr>
+						<td></td>
+						<td colspan="2"></td>
+						<td>
+							<!-- <mat-form-field class="full_width">
+								<mat-label>Rs.</mat-label>
+								<input type="number" matInput formControlName="surgery_amount" [min]='0' (change)="sumC()" (keypress)="omit_text($event)" (keyup)="sumC()"s>
+							</mat-form-field> -->
+						</td>
+					</tr>
+
+				</tbody>
+
+			</table>
+
+			<table class="table">
+				<tbody>
+					<tr>
+						<th width="30">7.</th>
+						<th colspan="3">COST OF MEDICINES</th>
+						<th style="padding-top: 25px;" width= "425">
+							<mat-form-field class="full_width">
+								<mat-label>Rs.</mat-label>
+								<input type="number" matInput formControlName="medicine_sec_amount" [min]='0' (change)="sumC()" (keypress)="omit_text($event)" (keyup)="sumC()">
+							</mat-form-field>
+						</th>
+					</tr>
+					<tr>
+						<td></td>
+						<td colspan="3"></td>
+						<td>
+							<!-- <mat-form-field class="full_width">
+								<mat-label>Rs.</mat-label>
+								<input type="number" matInput formControlName="medicine_sec_amount" [min]='0' (change)="sumC()" (keypress)="omit_text($event)" (keyup)="sumC()">
+							</mat-form-field> -->
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th>C.</th>
+						<th colspan="3">TOTAL (5+6+7)</th>
+						<th style="padding-top: 25px;" width= "425">
+							<mat-form-field class="full_width">
+								  <mat-label>Rs.</mat-label>
+										<input matInput type="number" placeholder="amount" [min]='0' formControlName="total_sum_c" value="{{secCSum}}" readonly="readonly">
+									</mat-form-field>
+						</th>
+					</tr>
+					<tr>
+						<th></th>
+						<th colspan="3">TOTAL AMOUNT CLAIMED (A+B+C)</th>
+						<th style="padding-top: 25px;" width= "425">
+							<mat-form-field class="full_width">
+								<mat-label>Rs.</mat-label>
+								<input matInput type="number" placeholder="amount" [min]='0' formControlName="grand_total" value="{{grandTotal}}" readonly="readonly">
+							</mat-form-field>
+						</th>
+					</tr>
+				</tfoot>
+
+			</table>
+
+		</div>
+		<button [disabled]="" mat-flat-button color="primary" type="ngSubmit">Submit</button>
+	</div>
+</form>
+</section>

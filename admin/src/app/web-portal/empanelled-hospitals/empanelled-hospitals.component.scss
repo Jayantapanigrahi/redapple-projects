@@ -1,0 +1,23 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
+.search_heading{
+	font-size:28px;
+}
+.margin_top{
+	margin-top:30px;
+}
+input:focus, select:focus{
+	outline:none;
+	box-shadow:none;
+	border:1px solid #65bb69;
+}

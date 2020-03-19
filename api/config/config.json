@@ -1,0 +1,37 @@
+{
+	"development": {
+		"username": "coal",
+		"username": "postgres",
+		"password": "redapple2014",
+		"database": "coalindia",
+		"timezone": "+05:30",
+		"dialect": "postgres",
+		"port":5432,
+		"dialectOptions": {
+			"charset": "utf8mb4_unicode_ci"
+		},		
+		"datetime" : "YYYY-MM-dd"
+		
+	},
+
+	"logging": true,
+	"test": {
+		"user": "postgres",
+		"password": "postgres",
+		"database": "database_test",
+		"host": "127.0.0.1",
+		"dialect": "postgres"
+	},
+	"production": {
+		"user": "postgres",
+		"password": "postgres",
+		"database": "coalindia",
+		"host": "localhost",
+		"timezone": "00:00",
+		"dialect": "postgres",
+		"dialectOptions": {
+			"charset": "utf8mb4_unicode_ci"
+		},
+		"datetime": "YYYY-MM-dd"
+	}
+}

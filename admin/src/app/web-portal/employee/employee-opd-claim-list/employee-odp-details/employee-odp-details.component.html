@@ -1,0 +1,57 @@
+<div class="modal_head" fxLayout="row" fxLayoutAlign="start center" mat-dialog-title>
+     <h2 class="headline m-0"
+        fxFlex="auto">Claim Details
+          <button class="text-secondary close_btn" style="float: right;" mat-dialog-close mat-icon-button type="button">
+      <i class="material-icons">clear</i>
+    </button>
+      </h2>
+    
+
+  
+    
+  </div>
+
+<mat-divider class="-mx-6 text-border"></mat-divider>
+
+<mat-dialog-content fxLayout="column">
+  <div class="row">
+   	<div class="col-sm-12 col-xs-12"><br>
+   		<p class="general_text"><b>Submitted On: </b>{{defaults.created_at | date}}</p>
+   		<p class="general_text"><b>Claimed ammount: </b>{{defaults.amount_claimed }}</p>
+      <p class="general_text"><b>Accomodation: </b>{{defaults.accomodation_date_from | date}} - {{defaults.accomodation_date_to | date}}</p>
+   		<p class="general_text"><b>Accomodation amount: </b>{{defaults.accomodation_amount}}</p>
+   		<p class="general_text"><b>Cost of medicine: </b>{{defaults.medicine_amount}}</p>
+      <p class="general_text"><b>Surgery amount: </b>{{defaults.surgery_amount}}</p>
+   		<p class="general_text"><b>Purchased medicine amount: </b>{{defaults.medicine_amount}}</p>
+      <p class="general_text"><b>Surgery amount: </b>{{defaults.surgery_amount}}</p><br>
+
+      <p class="general_text"><b>Consultation:</b></p>
+   			<div *ngFor="let item of defaults.opd_consultations">
+   				<span><b>Date: </b>{{item.consultation_date}}</span><br>
+   				<span><b>Amount: </b>{{item.amount}}</span>
+   			</div><br>
+        <p class="general_text" style="margin-bottom: 0"><b>Injectios:</b></p>
+   			<div *ngFor="let item of defaults.opd_injections">
+   				<span><b>Date: </b>{{item.inject_date}}</span><br>
+   				<span><b>Amount: </b>{{item.amount}}</span>
+   			</div>
+   		<p class="general_text"><b>Medicines purchased from market:</b></p><br>
+
+      <p class="general_text" style="margin-bottom: 0"><b>Medicines:</b></p>
+        <div *ngFor="let item of defaults.opd_medicines">
+          <span><b>Date: </b>{{item.medicine_date}}</span><br>
+          <span><b>Amount: </b>{{item.amount}}</span>
+        </div><br>
+    
+      <p class="general_text"><b>Grand total: </b>{{defaults.grand_total }}</p>
+   	</div>
+   			
+   </div>
+    
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">Close</button>
+    
+  </mat-dialog-actions>
+

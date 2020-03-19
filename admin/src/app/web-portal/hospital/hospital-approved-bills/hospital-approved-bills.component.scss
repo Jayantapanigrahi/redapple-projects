@@ -1,0 +1,114 @@
+.example-card {
+  max-width: 400px;
+}
+.mb-15{
+	margin-bottom:15px;
+}
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+.mat-card-image{margin:0;}
+.employee_address{
+  padding: 10px 0 0;
+}
+.side_nav_content{ padding-top: 25px; padding-bottom: 35px;  min-height:800px;}
+.particulars{
+	border:1px solid #ff9e80;
+}
+table tr.mat-row{
+    cursor:pointer;
+}
+table tr.mat-row:hover{
+    background:#ccc;
+
+}
+.mat-expansion-panel-header{
+	height:auto !important;
+	padding:5px 20px;
+}
+
+.wrapper-progressBar {
+    width: 100%
+}
+
+.progressBar {
+}
+
+.progressBar li {
+    list-style-type: none;
+    float: left;
+    width: 25%;
+    position: relative;
+    text-align: center;
+    word-break: break-all;
+}
+
+.progressBar li:before {
+    content: " ";
+    line-height: 30px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    display: block;
+    text-align: center;
+    margin: 0 auto 10px;
+    background-color: #ddd
+}
+
+.progressBar li:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    background-color: #ddd;
+    top: 15px;
+    /*left: -50%;*/
+    left: -44.5%;
+    /*z-index: -1;*/
+}
+
+.progressBar li:first-child:after {
+    content: none;
+}
+
+.progressBar li.active {
+    color: dodgerblue;
+}
+
+.progressBar li.active:before {
+    border-color: dodgerblue;
+    background-color: dodgerblue
+}
+
+.progressBar li.active:after {
+    background-color: dodgerblue;
+}
+.fullwidth{
+    width:100%
+}
+
+@media (max-width: 480px) {
+    .progressBar{
+        padding: 0;
+    }
+    .progressBar li{
+        font-size: 10px;
+    } 
+    .progressBar li:before {
+        width: 14px;
+        height: 14px;
+    }
+    .progressBar li:after{
+        top: 6px;
+        left: -38.5%;
+        height: 3px;
+    }
+    .medicine_box table tr td{
+        width: 100px;
+        word-break: break-all;
+        font-size: 12px;
+    }
+    h4{font-size: 16px;}
+}

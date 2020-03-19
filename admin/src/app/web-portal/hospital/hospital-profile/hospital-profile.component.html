@@ -1,0 +1,138 @@
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<section class="col-sm-10 side_nav_content col-sm-offset-2">
+	<div class="container text-center">
+		<h2>Profile</h2>
+	</div>
+	<div class="row">
+		<div  class="col-sm-12">
+ 			<form *ngIf="fdVAl" [formGroup]="profileForm" (ngSubmit)="signupFormSubmit()">
+	 			<div class="row reg_mid">
+	 				<div class="col-sm-12 col-xs-12">
+						<div class="col-md-4 col-sm-4">
+							<div class="regis_fld">
+								<div class="form-group">
+									<mat-form-field class="full_width">
+									  <mat-label>Hospital Name</mat-label>
+									  <input matInput type="text" formControlName="name" placeholder="EX: HOSPITAL" required>
+								 	</mat-form-field>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="regis_fld">
+								<div class="form-group">
+									<mat-form-field class="full_width">
+										<mat-label>First Name</mat-label>
+										<input matInput type="text" formControlName="firstname" placeholder="Registering user First Name" >
+									</mat-form-field>
+								</div>
+							</div>
+						</div>
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field class="full_width">
+										  <mat-label>Last Name</mat-label>
+										  <input matInput type="text" formControlName="lastname" placeholder="Registering user Last Name">
+									 </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-3">
+		 					<div class="regis_box">
+		 						<p>Hospital Logo</p>
+					 				<img style="object-fit: cover; height: 255px;" src={{testImagesource.logo}} alt="Test Image" width="100%" (click)="testImage1.click()"  onError="this.src='assets/images/upload_card.png'">
+							      <input #testImage1 type="file" formControlName="logo" (change)="importFile($event,'logo')" style="display:none" accept="image/*">
+		 					</div>
+		 				</div>
+		                <div class="col-sm-9">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field class="full_width">
+		 							 	<mat-label>Hospital Address</mat-label>
+									    <textarea matInput type="textarea" formControlName="address" placeholder="" maxlength="400"></textarea>
+									  </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-9">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field class="full_width">
+		 							 	<mat-label>Hospital Description</mat-label>
+									    <textarea matInput type="textarea" formControlName="description" placeholder="" maxlength="400"></textarea>
+									  </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				
+<!-- BANK DETAILS -->
+		 				<div class="col-sm-3">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field class="full_width">
+		 							 	<mat-label>Bank Account Number</mat-label>
+		                                <input matInput type="text" formControlName="bank_account_number" placeholder="">
+		                             </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+
+		 				<div class="col-sm-3">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field class="full_width">
+		 							 	<mat-label>IFSC Code</mat-label>
+		                                <input matInput type="text" formControlName="ifsc_code" placeholder="">
+		                             </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+
+		 				<div class="col-sm-3">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field class="full_width">
+		 							 	<mat-label>Bank Name</mat-label>
+		                                <input matInput type="text" formControlName="bank_name" placeholder="">
+		                             </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-4">
+		 							<div class="signa_sec">
+		 								<div class="form-group">
+			 							 	<div class="regis_box">
+						 						<p>Bank Proof Document</p>
+									 			 <img style="object-fit: cover; height: 255px;" src={{testImagesource.bank_proof_document}} alt="Test Image" width="100%" (click)="testImage4.click()"  onError="this.src='assets/images/upload_card.png'">
+											      <input #testImage4 type="file" formControlName="bank_proof_document" (change)="importFile($event,'bank_proof_document')" style="display:none" accept="image/*">
+						 					</div>
+		 						        </div>
+		 							</div>
+		 				</div>
+		 				<!-- <div class="col-sm-8">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field class="full_width">
+		 							 	<mat-label>Your Request message</mat-label>
+									    <textarea matInput type="textarea" formControlName="request_message" maxlength="400" placeholder=""></textarea>
+									  </mat-form-field>
+		 						</div>
+		 					</div>
+		 				</div> -->
+		 				<div class="clearfix"></div>
+		 				
+		 					<div class="col-sm-12">
+			 					<button  mat-flat-button color="primary" type="ngSubmit">Update</button> 
+			 				</div>
+		 				
+		 				
+
+		 				</div>
+		 				
+	 				</div>
+	 			</form>
+		    </div>
+	</div>
+</section>

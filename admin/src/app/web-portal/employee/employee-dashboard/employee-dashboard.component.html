@@ -1,0 +1,175 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<section class="col-sm-10 side_nav_content col-sm-offset-2">
+  <div class="container text-center">
+    <h2>Dashboard</h2>
+  </div>
+  <h2 *ngIf="employeeDetails" style="color:red;"><b>Balance Amount:</b><span *ngIf="employeeDetails.master">{{employeeDetails.master.medical_card_amount}}</span></h2>
+  <mat-tab-group>
+  <!-- Pending Estimates -->
+  <mat-tab label="Pending estimates">
+    <div class="col-sm-12 col-xs-12 table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th width="80">Sl no</th>
+            <th width="120">Hospital name</th>
+            <th width="160">Admission number</th>
+            <th width="150">Date of admission</th>
+            <th>Amount</th>
+            <th width="150">Hospital remarks</th>
+            <th width="150">Hospital disclaimer</th>
+            <th width="170">Provisional diagnosis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of pendingEstimations ; let i = index">
+            <td width="80">{{i+1}}</td>
+            <td>{{item.hospital.name}}</td>
+            <td>{{item.admission_number}}</td>
+            <td>{{item.date_of_admission}}</td>
+            <td>{{item.total_estimated_amount}}</td>
+            <td>{{item.hospital_remarks}}</td>
+            <td>{{item.hospital_disclaimer}}</td>
+            <td>{{item.provisional_diagnosis}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <pagination-controls (pageChange)="pagePendEstChanged($event)"></pagination-controls> -->
+    </div>
+  </mat-tab>
+  <!-- Approved Estimates -->
+   <mat-tab label="Approved estimates">
+      <div class="col-sm-12 col-xs-12 table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th width="80">Sl no</th>
+            <th width="120">Hospital name</th>
+            <th width="160">Admission number</th>
+            <th width="150">Date of admission</th>
+            <th>Amount</th>
+            <th>Approved amount</th>
+            <th width="150">Hospital remarks</th>
+            <th width="170">Provisional diagnosis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of approvedEstimations; let i = index ">
+            <td>{{i+1}}</td>
+            <td>{{item.hospital.name}}</td>
+            <td>{{item.admission_number}}</td>
+            <td>{{item.date_of_admission}}</td>
+            <td>{{item.total_estimated_amount}}</td>
+            <td>{{item.approved_amount}}</td>
+            <td>{{item.hospital_remarks}}</td>
+            <td>{{item.provisional_diagnosis}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <pagination-controls (pageChange)="pageApEstChanged($event)"></pagination-controls> -->
+    </div>
+   </mat-tab>
+  <!-- Pending bills -->
+   <mat-tab label="Pending bills">
+     <div class="col-sm-12 col-xs-12 table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th width="80">Sl no</th>
+            <th width="120">Hospital name</th>
+            <th width="160">Admission number</th>
+            <th width="150">Date of discharge</th>
+            <th>Amount</th>
+            <th>Line of treatment</th>
+            <th>Final diagnosis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of pendingBills; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.hospital.name}}</td>
+            <td>{{item.admission_number}}</td>
+            <td>{{item.hospital_submit_date}}</td>
+            <td>{{item.total_cost}}</td>
+            <td>{{item.line_of_treatment}}</td>
+            <td>{{item.final_diagnosis}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <pagination-controls (pageChange)="pagePdBillChanged($event)"></pagination-controls> -->
+    </div>
+   </mat-tab>
+  <!-- Approved Bills -->
+   <mat-tab label="Approved bills">
+      <div class="col-sm-12 col-xs-12 table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th width="80">Sl no</th>
+            <th width="120">Hospital name</th>
+            <th width="150">Admission number</th>
+            <th width="150">Date of discharge</th>
+            <th>Amount</th>
+            <th width="150">Approve amount</th>
+            <th>Line of treatment</th>
+            <th>Final diagnosis</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of approvedBills; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.hospital.name}}</td>
+            <td>{{item.admission_number}}</td>
+            <td>{{item.hospital_submit_date }}</td>
+            <td>{{item.total_cost}}</td>
+            <td>{{item.company_approve_amount}}</td>
+            <td>{{item.line_of_treatment}}</td>
+            <td>{{item.final_diagnosis}}</td>
+          </tr>
+        </tbody>
+      </table>
+     <!--  <pagination-controls (pageChange)="pageApBillChanged($event)"></pagination-controls> -->
+    </div>
+  </mat-tab>
+  <!-- Approved Estimates -->
+   <mat-tab label="Final discharge summary">
+      <div class="col-sm-12 col-xs-12 table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th width="80">Sl no</th>
+            <th width="120">Hospital name</th>
+            <th width="120">Date</th>
+            <th>Final diagnosis</th>
+            <th width="180">Life certificate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of approvedBills; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.hospital.name}}</td>
+            <td>{{item.company_approval_date }}</td>
+            <td>{{item.final_diagnosis }}</td>
+            <td><a [href]="fileUrl" target="_blank" [download]="fileUrl">DownloadFile</a></td>
+          </tr>
+        </tbody>
+      </table>
+     <!--  <pagination-controls (pageChange)="pageApBillChanged($event)"></pagination-controls> -->
+    </div>
+  </mat-tab>
+
+</mat-tab-group>
+  <!-- <div class="container">
+    <mat-card class="example-card" *ngIf="employeeDetails">
+      <mat-card-header>
+        <div mat-card-avatar></div>
+        <mat-card-title>{{employeeDetails.employee.employee_name}}</mat-card-title>
+        <mat-card-subtitle>{{employeeDetails.designation}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="{{employeeDetails.employee.employee_image}}" alt="Photo of a Shiba Inu" onError="this.src='assets/images/sm_profile.png';">
+      <mat-card-content>
+        <p class="employee_address">{{employeeDetails.employee.permanent_address}}</p>
+      </mat-card-content>
+    </mat-card>
+  </div> -->
+</section>

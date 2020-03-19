@@ -1,0 +1,82 @@
+<div class="coal_mid_sec">
+  <div class="container">
+    <h2 class="text-center search_heading">LIST OF EMPANELLED HOSPITALS</h2>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-group">
+          <mat-form-field>
+              <mat-label>Select City</mat-label>
+              <mat-select (selectionChange)="applyFilter($event.value)">
+                <mat-option value="">Select</mat-option>
+                <mat-option value="City">City 1</mat-option>
+                <mat-option value="City">City 2</mat-option>
+                <mat-option value="City">City 3</mat-option>
+              </mat-select>            
+            </mat-form-field>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-group">
+           <mat-form-field>
+          <mat-label>Search For</mat-label>
+              <mat-select (selectionChange)="applyFilter($event.value)">
+                <mat-option value="">Select</mat-option>
+                <mat-option value="Hospitals">Hospitals/Diagnosis centres</mat-option>
+                <mat-option value="Approved">Approved rates for Procedures/Investigations</mat-option>
+              </mat-select> 
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    
+    
+    <h2 class="text-center margin_top search_heading">EMPANELLED HOSPITAL DETAILS</h2>
+
+    <!-- <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field> -->
+    <div class="form-group">
+      <label for="filter">Filter</label>
+      <input type="text" class="form-control" (keyup)="applyFilter($event.target.value)" placeholder="Search here">
+    </div>
+    <div class="mat-elevation-z8 table-responsive">
+      <table mat-table [dataSource]="dataSource" matSort>
+        <!-- Serial Column -->
+        <ng-container matColumnDef="serial_no">
+          <th mat-header-cell *matHeaderCellDef style="width:40px;">
+            SL No.
+          </th>
+          <td mat-cell *matCellDef="let row; let i=index;" style="width:40px;">
+            {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+          </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header  style="width:120px;"> Name </th>
+          <td mat-cell *matCellDef="let row" style="width:120px;"> {{row.name}} </td>
+        </ng-container>
+
+        <!-- address Column -->
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+          <td mat-cell *matCellDef="let row"> {{row.address}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+          <td mat-cell *matCellDef="let row"> {{row.description | limitTo: '10'}} <span style="color:blue; float: right" (click)="descriptionPopUp(row.description)">Read more</span></td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator
+        #paginatorRef
+        [length]="20"
+        [pageSize]="20"
+        [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</div>

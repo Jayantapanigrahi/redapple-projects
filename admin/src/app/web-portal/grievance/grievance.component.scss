@@ -1,0 +1,24 @@
+.contact_form{
+	margin-bottom: 25px;
+}
+.contact_form input:focus,
+.contact_form textarea:focus{
+	border:1px solid #f44336;
+	box-shadow: none;
+	outline: none;
+}
+.submit_btn{
+	background: #f44336;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+    color: #fff;
+    cursor: pointer;
+}
+.submit_btn:focus{
+	box-shadow: none;
+	outline: none;
+}
+mat-form-field{
+	width:100%;
+}

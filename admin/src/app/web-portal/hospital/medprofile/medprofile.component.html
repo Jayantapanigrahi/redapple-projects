@@ -1,0 +1,94 @@
+<div *ngIf="employeeData">
+<section class="mid_sec" >
+	<div class="col-sm-6 offset-sm-3" style="margin-top: 20px">
+		<div class="row">
+			
+				<div class="col-sm-6">
+					<div class="mid_in_lt">
+						<img src="{{employeeData.employee.employee_image}}" alt="" style="width:100%;height: 307px; object-fit: cover">
+						<p>{{employeeData.employee.employee_name}}</p>
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="mid_in_lt">
+						<!-- <img src="assets/images/noImage.png" alt="" style="min-height: 307px"> -->
+            <img src="{{employeeData.employee.spouse_image}}" onError="this.src='assets/images/noImage.png'" alt="" style="width:100%;height: 307px; object-fit: cover">
+						<p>{{employeeData.employee.spouse_name}}</p>
+					</div>
+				</div>
+			
+		</div>
+	</div>
+</section>
+<section class="mid_dwn_sec">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<table class="table table-bordered">
+  
+  <tbody>
+    <tr>
+      <th scope="row" width="50%">Employee ID</th>
+      <td>{{employeeData.employee.employee_id}}</td>
+      
+    </tr>
+    <tr>
+      <th scope="row">Employee Name</th>
+      <td>{{employeeData.employee.employee_name}}</td>
+      
+    </tr>
+    <tr>
+      <th scope="row">Spouse</th>
+      <td>{{employeeData.employee.spouse_name}}</td>      
+    </tr>
+
+    <tr>
+      <th scope="row">EIS Code</th>
+      <td>{{employeeData.master.eis_number}}</td>      
+    </tr>
+
+     <tr>
+      <th scope="row">Date of Birth - Employee</th>
+      <td>{{employeeData.employee.date_of_birth | date}}</td>      
+    </tr>
+
+     <tr>
+      <th scope="row">Date of Joining - Spouse</th>
+      <td>{{employeeData.employee.date_of_joining | date}}</td>      
+    </tr>
+
+     <tr>
+      <th scope="row">Address</th>
+      <td>{{employeeData.employee.permanent_address }}</td>      
+    </tr>
+
+    <tr>
+      <th scope="row">Phone No.</th>
+      <td>{{employeeData.mobile}}</td>      
+    </tr>
+
+    <tr>
+      <th scope="row">Email</th>
+      <td>{{employeeData.email}}</td>      
+    </tr>
+
+    <tr>
+      <th scope="row">PAN No.	</th>
+      <td>{{employeeData.master.pan_number}}</td>      
+    </tr>
+   <tr>
+      <th scope="row">Registration Date</th>
+      <td>{{employeeData.employee.created_at | date}}</td>      
+    </tr>
+   <tr>
+      <th scope="row">Retirement Date</th>
+      <td>{{employeeData.employee.date_of_retierment | date}}</td>      
+    </tr>
+  </tbody>
+</table>
+			</div>
+		</div>
+	</div>
+</section>
+
+</div>

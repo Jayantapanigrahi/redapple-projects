@@ -1,0 +1,57 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<section class="col-sm-10 side_nav_content col-sm-offset-2">
+  <div class="container text-center">
+    <h2>Approved Estimation List</h2>
+  </div>
+  <div *ngIf="estimations" class="container">
+  	<div class="row">
+  	 <div class="col-sm-12 mb-15" *ngFor="let element of estimations | paginate: config">
+        <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <div class="col-xs-12 col-sm-6">
+                <mat-panel-title>
+                  <b>Hospital Name: </b>&nbsp;{{(element.hospital.name) ? (element.hospital.name) : ""}}
+                </mat-panel-title>
+              </div>
+              <div class="col-xs-12 col-sm-6">
+                <mat-panel-description>
+                  <b>Date Of Admissoin: </b>&nbsp;{{element.date_of_admission}}
+                </mat-panel-description>
+              </div>
+            </mat-expansion-panel-header>
+            <div class="row">
+              <!-- <div class="col-sm-12 col-xs-12">
+                <p class="employee_address"><b>Your Sign: </b></p>
+                <img mat-card-image src="{{element.user_sign}}" alt="Photo of a Shiba Inu" onError="this.src='assets/images/sm_profile.png';">
+              </div> -->
+              <div class="col-sm-12 col-xs-12">
+                <p class="employee_address"><b>Doctor Name: </b>{{element.doctor_name}}</p>
+                <p class="employee_address"><b>Plan Of Treatment: </b><br>{{element.plan_of_treatment}}</p>
+                <p class="employee_address"><b>Estimated Amount: </b>{{element.total_estimated_amount}}</p>
+                <p class="employee_address"><b>Approved Amount: </b>{{element.approved_amount}}</p>
+                <p class="employee_address"><b>Provisional Dignosis: </b><br>{{element.provisional_diagnosis}}</p>
+                <p class="employee_address"><b>Remarks: </b><br>{{element.hospital_remarks}}</p>
+                <p class="employee_address"><b>Disclaimer: </b><br>{{element.hospital_disclaimer}}</p>
+              </div>
+            </div>
+            
+            
+            
+            <div class="row ">
+              <div class="col-xs-12 col-sm-12">
+              <div class="col-sm-6 particulars" *ngFor="let Pelement of element.estimate_particulars">
+                <p class="employee_address"><b>Particulars Name: </b>{{Pelement.particulars}}</p>
+                <p class="employee_address"><b>CGHS Code: </b>{{Pelement.cghs_code}}</p>
+                <p class="employee_address"><b>Amount: </b>{{Pelement.amount}}</p>
+              </div>
+            </div>
+           </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+   </div>
+  </div>
+  <div class="text-center" style="margin:50px 0;">No record found</div>
+  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+</section>

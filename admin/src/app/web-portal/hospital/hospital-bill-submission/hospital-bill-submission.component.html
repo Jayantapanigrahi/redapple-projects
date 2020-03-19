@@ -1,0 +1,148 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<section class="col-sm-10 side_nav_content col-sm-offset-2">
+	<div class="container text-center">
+		<h2>Hospital Bill Submission</h2>
+		<h4>TO WHOM IT MAY CONCERN</h4>
+	</div>
+	<div class="container">
+		<h3 style="color:#ff9e80;" *ngIf="sumEstmt">Total Estimation: {{sumEstmt}}</h3>
+		<form (ngSubmit)="save()" [formGroup]="addBillForm">
+			
+			<div class="row">
+				
+				<div class="col-xs-12 col-sm-4">
+					<mat-form-field>
+					<mat-select matNativeControl formControlName="user_id" (selectionChange)="getAdmissiondetails($event.value)">
+						<input matInput  #filteruser autocomplete="off" (keyup)="onKeyUser($event.target.value)" placeholder="Search.." name="search" style="padding: 10px;width:80%"><button (click) = "filteruser.value = ''"><i class="material-icons">clear</i>  </button>
+					    <mat-option value="">Select User</mat-option>
+					    <mat-option *ngFor="let obj of employee_pop" value="{{ obj.user_id }}">{{ obj.employee_name }}-{{obj.employee_id}}</mat-option>
+					</mat-select>
+				    </mat-form-field>
+					<p *ngIf="addBillForm.get('user_id').hasError('required') && isSubmitted" style="color: red">User is required*</p>
+				</div>
+
+				<div class="col-xs-12 col-sm-4">
+					<div class="form-group">
+						<mat-form-field>
+							<mat-label>Admission number</mat-label>
+							<input matInput type="text"  formControlName="admission_number" maxlength="200" required readonly="readonly">
+						</mat-form-field>
+						<p *ngIf="addBillForm.get('admission_number').hasError('required') && isSubmitted" style="color: red" >Admission number is required</p>
+					</div>
+				</div>
+				
+				
+				<div class="col-xs-12 col-sm-4">
+					<div class="form-group">
+						<mat-form-field>
+							<mat-label>Medical service description</mat-label>
+							<input matInput type="text" placeholder="Enter description" formControlName="medical_service_description" required maxlength="500">
+						</mat-form-field>
+						<p *ngIf="addBillForm.get('medical_service_description').hasError('required') && isSubmitted" style="color: red">Medical service is required</p>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-4">
+					<div class="form-group">
+						<mat-form-field>
+							<mat-label>Final diagnosis</mat-label>
+							<input matInput type="text" placeholder="Enter final diagnosis" formControlName="final_diagnosis" required maxlength="500">
+						</mat-form-field>
+						<p *ngIf="addBillForm.get('final_diagnosis').hasError('required') && isSubmitted" style="color: red">Final diagnosis is required</p>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-8">
+					<div class="form-group">
+						<mat-form-field>
+							<mat-label>Line of Treatment</mat-label>
+							<input matInput type="text" placeholder="Enter line of treatment" formControlName="line_of_treatment" required maxlength="500">
+						</mat-form-field>
+						<p *ngIf="addBillForm.get('line_of_treatment').hasError('required') && isSubmitted" style="color: red">Line of treatment is required</p>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12">
+					<div class="form-group">
+						<mat-form-field>
+							<input matInput formControlName="date_of_discharge" [matDatepicker]="picker" placeholder="Discharge  Date" required autocomplete="off" [max]="maxDate">
+										<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+										<mat-datepicker #picker disabled="false"></mat-datepicker>
+						</mat-form-field>
+						<p *ngIf="addBillForm.get('date_of_discharge').hasError('required') && isSubmitted" style="color: red">Discharge  date is required</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 text-right mb_15">
+				 <button  (click)="addCreds()" type="button" class="submit_btn">Add Invoice Field</button>
+				</div>
+				<div class="col-xs-12 col-sm-12 table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Invoice number</th>
+								<th class="text-center">Description</th>
+								<th class="text-center">Amount</th>
+								<th class="text-center">Upload Bill</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr formArrayName="amountEstimation">
+								<td colspan="4">
+									<table width="100%" *ngFor="let item of particulars.controls; let pointIndex=index" [formGroupName]="pointIndex">
+										<tr>
+											<td style="padding-top: 25px">
+												<mat-form-field class="full-width">
+													<input type="text" matInput placeholder="Invoice number" formControlName="invoice_number">
+												</mat-form-field>
+											</td>
+											<td style="padding-top: 25px">
+												<mat-form-field class="full-width">
+													<input matInput type="text" placeholder="Description" formControlName="document_description" maxlength="500">
+												</mat-form-field>
+											</td>
+											<td style="padding-top: 25px">
+												<mat-form-field class="full-width">
+													<input matInput type="number" placeholder="amount" [min]='0' formControlName="amount" (keypress)="omit_text($event)"  (keyup)="getSum()">
+												</mat-form-field>
+											</td>
+											<td style="padding-top: 25px">   
+												<input (change)="importFile($event,pointIndex)" type="file" accept=".pdf" formControlName="document">
+												<p>.pdf only*</p>
+											</td>
+											<p class="close_btn">
+												<button class="float-button" type="button" (click)="deleteInvoice(pointIndex)">X</button>
+											</p>
+										</tr>
+									</table>
+								</td>
+								
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<th colspan="3">Total Cost</th>
+								<th class="text-center">
+									<mat-form-field class="full-width">
+										<input matInput type="number" placeholder="amount" formControlName="total_cost" readonly="readonly">
+									</mat-form-field>
+								</th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			
+			<div class="col-xs-12 col-sm-12">
+				<h4>Discharge summary document</h4>
+				<ol type="a" class="list_item">
+					<input type="file" (change)="importFileDischarge($event)" formControlName="discharge_summary_document" accept=".pdf">
+					<p *ngIf="addBillForm.get('discharge_summary_document').hasError('required') && isSubmitted" style="color: red">Discharge document is required</p>
+				</ol>
+				<p>.pdf only*</p> 
+			</div>
+			<div class="col-xs-12 col-sm-12">
+				<button  mat-flat-button color="primary" type="ngSubmit">Submit</button>
+			</div>
+		</form>
+	</div>
+</section>

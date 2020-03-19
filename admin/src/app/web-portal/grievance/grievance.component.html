@@ -1,0 +1,98 @@
+<div class="coal_mid_sec">
+	<div class="container">
+		       <h2>Grievance</h2>
+				<p style="color:green" *ngIf="response">{{response}}</p>
+				<p style="color:red" *ngIf="error">{{error}}</p>
+		
+			<form [formGroup]="Grievanceform"  (ngSubmit)="GrievanceformSubmit()">
+			<div class="row">
+				<div class="col-xs-12 col-md-4 col-sm-4">
+				   <div class="form-group">
+					<mat-form-field>
+					<mat-label>Name</mat-label>
+				        <input matInput type="text" placeholder="Enter Your name" formControlName="created_by" required>
+				    </mat-form-field>
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-4 col-sm-4">
+					<div class="form-group">
+						<mat-form-field>
+					    <mat-label>Email</mat-label>
+			            <input matInput type="email" placeholder="Enter your email" formControlName="email"  required>
+				        </mat-form-field>
+			        </div>
+			    </div>
+			    <div class="col-xs-12 col-md-4 col-sm-4">
+					<div class="form-group">
+						<mat-form-field>
+						<mat-label>Contact No</mat-label>
+					        <input matInput type="number" minlength="10"  (keypress)="omit_text($event)" placeholder="Ex:9878******" formControlName="phone_no" required>
+					    </mat-form-field>
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-4 col-sm-4">
+					<div class="form-group">
+						
+							<mat-label>Gender</mat-label><br>
+							<mat-radio-group aria-label="Select an option"  formControlName="gender" [(ngModel)]= "genderVal">
+							  <mat-radio-button value="male" style="margin-right: 10px;">Male</mat-radio-button>
+							  <mat-radio-button value="female" style="margin-right: 10px;">Female</mat-radio-button>
+							  <mat-radio-button value="transgender">Transgender</mat-radio-button>
+							</mat-radio-group>
+
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-4 col-sm-4">
+					<div class="form-group">
+						<mat-form-field>
+						<mat-label>State</mat-label>
+					        <input matInput type="text" placeholder="Enter Your state" formControlName="state" required>
+					    </mat-form-field>
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-4 col-sm-4">
+					<div class="form-group">
+						<mat-form-field>
+					    <mat-label>District</mat-label>
+			            <input matInput type="text" placeholder="Enter your District" formControlName="district"  required>
+				        </mat-form-field>
+			        </div>
+				</div>
+				<div class="col-xs-12 col-md-12 col-sm-12">
+					<div class="form-group">
+					        <mat-form-field>
+							<mat-label>Address</mat-label>
+							<textarea matInput formControlName="address"></textarea>
+						    </mat-form-field>
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-4 col-sm-4">
+					<div class="form-group">
+						<mat-form-field>
+						<mat-label>PIN</mat-label>
+					        <input matInput type="number" minlength="6" (keypress)="omit_text($event)" placeholder="Ex:756043" formControlName="pin_code" required>
+					    </mat-form-field>
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-4 col-sm-4">
+					<div class="form-group">
+						<mat-form-field>
+							<mat-label>Grievance Description</mat-label>
+							<textarea matInput formControlName="remarks_by_user" rows="1"></textarea>
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="col-xs-12 col-md-4 col-sm-4">
+				 	<input type="file" class="form-control" formControlName="grievance_image">
+				</div>
+				<div class="col-xs-12 col-md-12 col-sm-12">
+					<button type="submit" class="submit_btn">Submit</button>
+				</div>
+			</div>
+			</form>
+			
+		</div>
+				
+			
+		
+	</div>

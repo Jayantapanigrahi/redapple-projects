@@ -1,0 +1,95 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<section class="col-sm-10 side_nav_content col-sm-offset-2">
+	<div class="container text-center">
+		<h2>Dashboard</h2>
+	</div>
+<mat-tab-group *ngIf="listView">
+  <mat-tab label="Admitted Employees">
+    <div class="col-sm-12 col-xs-12 table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Sl no</th>
+            <th>Admission number</th>
+            <th>Date of admission</th>
+            <th>Total estimated amount</th>
+            <th>Employee name</th>
+            <th>Medical card number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of estimations ; let i = index" (click) = "estimateDetails(item)">
+            <td>{{i+1}}</td>
+            <td>{{item.admission_number}}</td>
+            <td>{{item.date_of_admission | date}}</td>
+            <td>{{item.totalEstAmnt}}</td>
+            <td>{{item.employee.employee_name}}</td>
+            <td>{{item.employee.master.medical_card_number}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Pending Bills">
+    <div class="col-sm-12 col-xs-12 table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Sl no</th>
+            <th>Admission number</th>
+            <th>Date of discharge</th>
+            <th>Total amount</th>
+            <th>Employee name</th>
+            <th>Medical card number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of bills ; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.admission_number}}</td>
+            <td>{{item.date_of_discharge | date}}</td>
+            <td>{{item.total_cost}}</td>
+            <td>{{item.employee.employee_name}}</td>
+            <td>{{item.employee.master.medical_card_number}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+
+
+<div class="row" *ngIf="!listView && detailaView">
+	<div class="col-xs-12" style="margin-bottom: 15px;">
+		<button mat-raised-button color="primary" (click)="viewList()"> Back </button>
+	</div>
+  
+  <div class="col-sm-12 col-xs-12">
+  	<div class="row">
+  		<div class="col-xs-6">
+			<p class="employee_address"><b>Admission number: </b>{{estimateData.admission_number}}</p>
+			<p class="employee_address"><b>Total amount: </b>{{estimateData.totalEstAmnt}}</p>
+			<p class="employee_address"><b>Employee name: </b>{{estimateData.employee.employee_name}}</p>
+			<p class="employee_address"><b>Medical card number: </b>{{estimateData.employee.master.medical_card_number}}</p>
+			<p class="employee_address"><b>Gender: </b>{{estimateData.employee.gender}}</p>
+			<p class="employee_address"><b>Employee ID: </b>{{estimateData.employee.employee_id}}</p>
+  		</div>
+  	</div>
+    
+    <h3>Estimations:</h3>
+  </div>
+  <div class="col-xs-12 col-sm-12" *ngFor="let Pelement of estimateData.estimations">
+    <p class="employee_address"><b>Doctor name: </b>{{Pelement.doctor_name}}</p>
+    <p class="employee_address"><b>Provisional diagnosis: </b>{{Pelement.provisional_diagnosis}}</p>
+    <p class="employee_address"><b>Plan of treatment: </b><br>{{Pelement.plan_of_treatment}}</p>
+
+    <div class="col-sm-6 particulars" style="margin-top:15px; border:1px solid #ff9e80; padding: 15px;" *ngFor="let element of Pelement.estimate_particulars">
+      <p class="employee_address"><b>Particulars name: </b>{{element.particulars}}</p>
+      <p class="employee_address"><b>CGHS code: </b>{{element.cghs_code}}</p>
+      <p class="employee_address"><b>Amount: </b>{{element.amount}}</p>
+    </div>
+  </div>
+</div>
+
+</section>

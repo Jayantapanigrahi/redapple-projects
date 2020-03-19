@@ -1,0 +1,83 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<section class="col-sm-10 side_nav_content col-sm-offset-2">
+	<div class="container">
+ 		<div class="col-sm-12">
+ 			<div class="registration_inner">
+ 				<h1 style="text-align:center; margin-bottom: 25px;">Your Life Certificate</h1>
+ 			</div>
+            <form [formGroup]="lifeCertificateForm" (ngSubmit)="lifeCertificateFormSubmit()">
+	 			<div class="reg_mid">
+					<div class="row">
+
+
+		 				
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+		 							 <mat-form-field>
+										  <mat-label>Life certificate number</mat-label>
+										  <input matInput type="text" required formControlName="certificate_number" placeholder="Number:LIFE000000">
+									 </mat-form-field>
+									 <p class="validation_error" *ngIf="lifeCertificateForm.get('certificate_number').hasError('required') && isSubmitted ">Life certificate number is required</p>
+		 						</div>
+		 					</div>
+		 				</div>
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+									<mat-form-field>
+										<mat-label>Issue date</mat-label>
+										<input matInput formControlName="start_date" [matDatepicker]="picker2" placeholder="Issue date" required autocomplete="off" readonly="readonly">
+										<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+										<mat-datepicker #picker2 disabled="false"></mat-datepicker>
+									</mat-form-field>
+									<p class="validation_error" *ngIf="lifeCertificateForm.get('start_date').hasError('required') && isSubmitted">Issue date is required</p>
+		 						</div>
+		 					</div>
+		 				</div>
+
+		 				<div class="col-sm-4">
+		 					<div class="regis_fld">
+		 						<div class="form-group">
+									<mat-form-field>
+										<mat-label>Expiry date</mat-label>
+										<input matInput formControlName="end_date" [matDatepicker]="picker" required placeholder="Expiry Date" autocomplete="off" [min]="today" readonly="readonly">
+										<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+										<mat-datepicker #picker disabled="false"></mat-datepicker>
+									</mat-form-field>
+									<p class="validation_error" *ngIf="lifeCertificateForm.get('end_date').hasError('required') && isSubmitted">Expiry date is required</p>
+		 						</div>
+		 					</div>
+		 				</div> 
+
+		 				<div class="col-sm-4 col-xs-12">
+		 					<div class="regis_box">
+		 						<p>Upload Your life certificate</p>
+		 						<pdf-viewer [src]="pdfSrc" 
+								              [render-text]="true"
+								              style="display: block;width:100%;max-height: 300px; overflow: auto; margin-bottom: 15px;"
+								              (click)="testImage1.click()"
+								  ></pdf-viewer>
+					 				<!-- <img style="object-fit: cover;" src={{testImagesource}} alt="Life certificate" width="100%" (click)="testImage1.click()"  onError="this.src='assets/images/upload_card.png'"> -->
+							      <input #testImage1 type="file" formControlName="life_certificate" (change)="importFile($event)" required accept=".pdf">
+							      <p>PDF only*</p>
+							       <p class="validation_error" *ngIf="lifeCertificateForm.get('life_certificate').hasError('required') && isSubmitted" style="margin-top: 5px;">Life certificate is required</p>
+							       <p class="validation_error" *ngIf="imageTypeErr">Please upload only Pdf file</p>
+		 					</div>
+		 				</div>
+		 				
+
+		 				 
+                       
+
+                      <div class="col-sm-12 text-right">
+		 					<button class="submit_btn" type="ngSubmit">Update</button> 
+		 				</div>
+		 			</div>
+		 		</div>
+
+		 	</form>
+     </div>
+  </div>
+</section>
+

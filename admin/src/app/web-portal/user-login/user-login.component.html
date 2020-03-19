@@ -1,0 +1,75 @@
+<div class="container coal_mid_sec">
+	<div class="col-xs-12">
+		<h2 class="text-center">Login</h2>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-6 offset-md-3">
+			<form [formGroup]="loginForm"  (ngSubmit)="submit()">
+				<p>
+					<mat-form-field>
+						<input type="email" matInput placeholder="E-mail" formControlName="email" required>
+					</mat-form-field>
+					<span *ngIf="loginForm.get('email').hasError('required') && submitted" style="color: red">Please enter email to login</span>
+				</p>
+
+				<p>
+					<mat-form-field>
+						<input type="password" matInput placeholder="Password" formControlName="password" required>
+					</mat-form-field>
+					<span *ngIf="loginForm.get('password').hasError('required') && submitted" style="color: red">Please enter password to login</span>
+				</p>
+				<!-- <p>
+					<mat-form-field *ngIf="otpFieldVisible">
+						<input type="text" matInput placeholder="Enter OTP" formControlName="otp">
+					</mat-form-field>
+				</p> -->
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<button class="login_button" *ngIf="LoginButtonVisible" type="submit" mat-button >Login</button>
+						<!-- <button class="login_button" *ngIf="ResendButtonVisible" type="button" mat-button (click)="SendOTP()">Resend</button>
+						<button class="login_button" *ngIf="submitButtonVisible" type="submit" mat-button>Submit</button> -->
+					</div>
+					<div class="col-xs-12 col-sm-6 text-right">
+						<p style="margin:0;">Don't have any account?</p>
+						<a class="signup_link" routerLink="/sign-up" >Register New User</a>
+					</div>
+				</div>
+				
+			</form>
+		</div>
+	</div>
+</div>
+<!-- <mat-card>
+    <mat-card-title>Login</mat-card-title>
+    <p style="color:red;" *ngIf="error_msg">{{error_msg}}</p>
+    <p style="color:green;" *ngIf="success_msg">{{success_msg}}</p>
+    <mat-card-content>
+	    <form [formGroup]="loginForm"  (ngSubmit)="submit()">
+		      <p>
+		        <mat-form-field>
+		          <input type="email" matInput placeholder="Email" formControlName="email" required>
+		        </mat-form-field>
+		      </p>
+
+		      <p>
+		        <mat-form-field>
+		          <input type="password" matInput placeholder="Password" formControlName="password" required>
+		        </mat-form-field>
+		      </p>
+		      <p>
+		        <mat-form-field *ngIf="otpFieldVisible">
+		          <input type="text" matInput placeholder="Enter OTP" formControlName="otp">
+		        </mat-form-field>
+		      </p>
+		      <div class="button">
+		      	<button *ngIf="LoginButtonVisible" type="button" mat-button (click)="SendOTP()">Login</button>
+		      	<button *ngIf="ResendButtonVisible" type="button" mat-button (click)="SendOTP()">Resend</button>
+		        <button *ngIf="submitButtonVisible" type="submit" mat-button>Submit</button>
+		      </div>
+
+	    </form>
+	    <h3>Don't have any account</h3>
+	    <a routerLink="/sign-up" >User Sign up</a>
+	    <a routerLink="/hospital-sign-up" >Hospital Sign up</a>
+    </mat-card-content>
+</mat-card> -->

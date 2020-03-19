@@ -1,0 +1,29 @@
+mat-accordion{
+	width:100%;
+}
+.example-card {
+  max-width: 400px;
+}
+.mb-15{
+	margin-bottom:15px;
+}
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+.mat-card-image{margin:0;}
+.employee_address{
+  padding: 10px 0 0;
+}
+.side_nav_content{ padding-top: 25px; padding-bottom: 35px;  min-height:600px;}
+.particulars{
+	border:1px solid #ff9e80;
+}
+mat-expansion-panel-header{
+	height: auto;
+
+}
+.mat-expansion-panel-header{
+	height: auto !important;
+	padding: 23px 10px;
+}

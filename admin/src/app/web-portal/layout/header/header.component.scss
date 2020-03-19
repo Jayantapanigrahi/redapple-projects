@@ -1,0 +1,21 @@
+.profile_name{
+	width: 160px;
+    height: 25px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 25px;
+}
+.header_inn_lt{
+	margin-top:7px;
+}
+/*----------------AFTER LOGIN--------------------*/
+.after_login_head{
+	padding: 0;
+}
+.after_login_nav{
+	padding: 0;
+}
+.after_login_nav .navbar{
+	margin-bottom: 0
+}

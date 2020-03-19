@@ -1,0 +1,230 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<section class="col-sm-10 side_nav_content col-sm-offset-2">
+	<div class="container text-center">
+		<h2>Admit And Estimation</h2>
+		<h4>TO WHOM IT MAY CONCERN</h4>
+		<h5>Approximate cost estimate</h5>
+		<h5>Approximate cost estimate for admission on against an admission made prior</h5>
+		<mat-accordion *ngIf="medicalHistory">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <b>Medical History</b>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <mat-list>
+             <div style="padding: 0;">
+             	<div class="col-xs-12" style="padding: 0;">
+	              <div class="row">
+	              <div class="col-sm-12 text-left" style="margin-bottom: 10px;"><b>Date of admission in Hospital: </b>{{medicalHistory.created_at | date}}</div>
+	              <div class="col-sm-12 text-left" style="margin-bottom: 10px;"><b>Name of Hospital Admitted: </b>{{(!medicalHistory.hospital.name)?'':medicalHistory.hospital.name}}</div>
+	              <div class="col-sm-12 text-left" style="margin-bottom: 10px;"><b>Final Diagnosis: </b> &nbsp;{{(!medicalHistory.overall_billing.final_diagnosis)?'':medicalHistory.overall_billing.final_diagnosis}}</div>
+	              
+	              </div>
+              </div>
+            </div>
+            </mat-list>
+            
+          </mat-expansion-panel>
+     </mat-accordion>
+	</div>
+	<div class="container" style="margin-top: 15px;">
+		<form (ngSubmit)="save()" [formGroup]="hospitalEstimation">
+			
+			<div class="row">
+				
+				<div class="col-xs-12 col-sm-4">
+					<mat-form-field>
+					<mat-select matNativeControl formControlName="user_id" (selectionChange)="setAdmissionNo($event.value)">
+						<input matInput  #filteruser autocomplete="off" (keyup)="onKeyUser($event.target.value)" placeholder="Search.." name="search" style="padding: 10px;width:80%"><button (click) = "filteruser.value = ''"><i class="material-icons">clear</i>  </button>
+					    <mat-option value="">Select User</mat-option>
+					    <mat-option *ngFor="let obj of employee_pop" value="{{ obj.id }}">{{ obj.firstname }}-{{obj.employee.employee_id}}</mat-option>
+					</mat-select>
+				    </mat-form-field>
+					<p *ngIf="hospitalEstimation.get('user_id').hasError('required') && isSubmitted" style="color: red">User is required*</p>
+				</div>
+				
+				<div class="col-xs-12 col-sm-4">
+					<div class="form-group">
+						<mat-form-field>
+							<mat-label>Admission number</mat-label>
+							<input matInput type="text"  formControlName="admission_number" maxlength="200" required readonly="readonly">
+						</mat-form-field>
+						<button type="button" *ngIf="showGenAdNum" (click)="generateAdmissionNo()">Generate</button>
+						<p *ngIf="hospitalEstimation.get('admission_number').hasError('required') && isSubmitted" style="color: red" >Admission number is required</p>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-4">
+					<div class="form-group">
+						<mat-form-field>
+							<mat-label>Doctor Name</mat-label>
+							<input matInput type="text" placeholder="Enter Doctor Name" formControlName="doctor_name" maxlength="200" required>
+						</mat-form-field>
+						<p *ngIf="hospitalEstimation.get('doctor_name').hasError('required') && isSubmitted" style="color: red" >Doctor name is required</p>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-4">
+					<div class="form-group">
+						<mat-form-field>
+							<mat-label>Admission Date</mat-label>
+							<input matInput formControlName="date_of_admission" [matDatepicker]="picker" placeholder="Addmission Date*" [min]="today" required autocomplete="off" readonly="readonly">
+										<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+										<mat-datepicker #picker disabled="{{pickerStatus}}"></mat-datepicker>
+						</mat-form-field>
+						<p *ngIf="hospitalEstimation.get('date_of_admission').hasError('required') && isSubmitted" style="color: red">Addmission date is required</p>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-8">
+					<div class="form-group">
+						<mat-form-field>
+						<mat-label>Provisional Diagnosis</mat-label>
+					      <mat-select matNativeControl formControlName="provisional_diagnosis">
+					      	<input matInput  #filterdig autocomplete="off" (keyup)="onKeyDiag($event.target.value)" placeholder="Search.." name="search" style="padding: 10px;width:80%"><button (click) = "filterdig.value = ''"><i class="material-icons">clear</i>  </button>
+					       <mat-option value="">Select Diagnosis</mat-option>
+					       <mat-option *ngFor="let obj of diag_pop" value="{{ obj.name }}">{{ obj.name }}</mat-option>
+					   </mat-select>
+						</mat-form-field>
+						<p *ngIf="hospitalEstimation.get('provisional_diagnosis').hasError('required') && isSubmitted" style="color: red">Provisional diagnosis is required</p>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12">
+					<div class="form-group">
+						<mat-form-field>
+							<mat-label>Plan Of Treatment</mat-label>
+							<input matInput type="text" placeholder="Enter Treatment Plan" formControlName="plan_of_treatment" maxlength="500" required >
+						</mat-form-field>
+						<p *ngIf="hospitalEstimation.get('plan_of_treatment').hasError('required') && isSubmitted" style="color: red">Plan Of treatment is required</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12 col-sm-12">
+					<p>This is rough estimation for 7 days hospitalization.</p>
+					<p>The details are as follows:</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 text-right mb_15">
+				 <button  (click)="addCreds()" type="button" class="submit_btn">Add Field</button>
+				</div>
+				<div class="col-xs-12 col-sm-12 table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>CGHS Code</th>
+								<th class="text-center">Particulars</th>
+								<th class="text-center">Amount</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- <mat-autocomplete #autoPart="matAutocomplete">
+						      <mat-option *ngFor="let option of cghs_pop" [value]="option.dispensary_name" >
+						        {{option.dispensary_name}}
+						      </mat-option>
+						    </mat-autocomplete>
+						    <mat-autocomplete #autoAmount="matAutocomplete">
+						      <mat-option *ngFor="let option of cghs_pop" [value]="option.rate">
+						        {{option.rate}}
+						      </mat-option>
+						    </mat-autocomplete>
+						    <mat-autocomplete #autoCode="matAutocomplete">
+						      <mat-option *ngFor="let option of cghs_pop" [value]="option.code">
+						        {{option.code}}
+						      </mat-option>
+						    </mat-autocomplete> -->
+							<tr formArrayName="amountEstimation">
+								<td colspan="3">
+									<table width="100%" *ngFor="let item of particulars.controls; let pointIndex=index" [formGroupName]="pointIndex" style="position: relative;">
+										<tr>
+											<td>
+												<mat-form-field>
+													<mat-select matNativeControl formControlName="cghs_code" (selectionChange)="setOtherParticular($event.value,pointIndex)">
+														<input matInput  #filterCGHS autocomplete="off" (keyup)="onKeyCghs($event.target.value)" placeholder="Search.." name="search" style="padding: 10px;width:80%"><button (click) = "filterCGHS.value = ''"><i class="material-icons">clear</i>  </button>
+													    <mat-option value="">Select CGHS</mat-option>
+													    <mat-option *ngFor="let obj of cghs_pop" value="{{ obj.cghs_code }}">{{ obj.cghs_code }}</mat-option>
+													</mat-select>
+												  </mat-form-field>
+											</td>
+											<td>
+												<mat-form-field class="full-width">
+													<input matInput placeholder="Particulars" formControlName="particulars" readonly="readonly">
+												</mat-form-field>
+											</td>
+											<td>
+												<mat-form-field class="full-width">
+													<input matInput type="text" placeholder="amount" formControlName="amount" readonly="readonly">
+												</mat-form-field>
+												<p class="close_btn">
+												<button class="float-button" type="button" (click)="deleteCreds(pointIndex)">X</button>
+											     </p>
+											</td>
+
+										</tr>
+									</table>
+								</td>
+								
+							</tr>
+						</tbody>
+						<tfoot>
+							<tr>
+								<th>Total Estimation Cost</th>
+								<th></th>
+								<th class="text-center">
+									<mat-form-field class="full-width">
+										<input matInput type="number" placeholder="amount" formControlName="total_estimation_amount" readonly="readonly">
+									</mat-form-field>
+								</th>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12">
+					<h4>Disclaimer</h4>
+					<ol type="a" class="list_item">
+						 <mat-form-field>
+									    <textarea matInput type="textarea" formControlName="hospital_disclaimer" placeholder="500 characters only" maxlength="500" required></textarea>
+						</mat-form-field>
+						<p *ngIf="hospitalEstimation.get('hospital_disclaimer').hasError('required') && isSubmitted" style="color: red">Disclaimer is required</p>
+					</ol>
+				</div>
+				<div class="col-xs-12 col-sm-12">
+					<h4>Remarks</h4>
+					<ol type="a" class="list_item">
+						 <mat-form-field>
+									    <textarea matInput type="textarea" formControlName="hospital_remarks" maxlength="500" placeholder="500 characters only " required></textarea>
+						</mat-form-field>
+						<p *ngIf="hospitalEstimation.get('hospital_remarks').hasError('required') && isSubmitted" style="color: red">Hospital remark is required</p>
+					</ol>
+				</div>
+				<div class="col-xs-12 col-sm-12">
+					<p>Upload Supporting Document</p>
+					<input type="file" (change)="importFile($event)" formControlName="estimation_document" required>
+					<p>*.jpg .png .JPEG .pdf files are allowed(max 20MB)</p>
+					<p *ngIf="hospitalEstimation.get('estimation_document').hasError('required') && isSubmitted" style="color: red">Supporting document is required</p>
+				</div>
+				<!-- <div class="col-xs-16 col-md-6 col-sm-6">
+					<p>Signature Pad</p>
+					<canvas #sigPad width="300" height="150" (mousedown)="onMouseDown($event)"
+						  (mousemove)="onMouseMove($event)"></canvas>
+						  <br/>
+						  <button  mat-flat-button color="primary" (click)="clear()" type="button" style="margin-right:5px;">Clear</button> 
+						  <button  mat-flat-button color="primary" (click)="saveSign()" type="button">Ok</button>
+						  
+						  <br/>
+						  <br/>
+				</div>
+				<div class="col-xs-16 col-md-6 col-sm-6">
+					<p>Signature of patient</p>
+					<img *ngIf="user_sign" [src]="user_sign">
+				</div> -->
+			</div>
+			<button  mat-flat-button color="primary" type="ngSubmit">Submit</button>
+		</form>
+	</div>
+</section>

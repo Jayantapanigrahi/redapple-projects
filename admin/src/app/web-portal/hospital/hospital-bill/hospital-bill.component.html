@@ -1,0 +1,134 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<section class="col-sm-10 side_nav_content col-sm-offset-2">
+  <div class="container text-center">
+    <h2>Pending Bill List</h2>
+  </div>
+      <div class="col-sm-12 col-xs-12 table-responsive" *ngIf="listView && !detailsView && dataSource">
+        <div class="table-responsive">
+          <table mat-table [dataSource]="dataSource" matSort class="table">
+
+            <ng-container matColumnDef="serial_no">
+              <th mat-header-cell *matHeaderCellDef>
+                SL no.
+              </th>
+
+              <td mat-cell *matCellDef="let row; let i=index;">
+                {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+              </td>
+            </ng-container>
+            
+          <!-- Position Column -->
+          <ng-container matColumnDef="bill_amount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Bill amount</th>
+          <td mat-cell *matCellDef="let element">{{element.total_cost}}</td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="date_of_clearance">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>No. of days pending</th>
+          <td mat-cell *matCellDef="let element">{{ getDayesPending(element.created_at,today) }}</td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="cleared_amount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Total no. of days pending with Coal India</th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.hospital_submit_date">{{ getDayesPending(element.hospital_submit_date,today)}}</span>
+          </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="reference">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Reference</th>
+          <td mat-cell *matCellDef="let element"><span *ngIf="element.employee"> {{element.employee.employee_name}} </span></td>
+          </ng-container>
+
+          <ng-container matColumnDef="medical_card_number">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Medical card number</th>
+          <td mat-cell *matCellDef="let element"><span *ngIf="element.employee"> {{element.employee.master.medical_card_number}} </span></td>
+          </ng-container>
+
+          
+          
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="details(row)"></tr>
+          </table>
+        </div>
+     <div class="no_record" *ngIf="dataSource.filteredData.length === 0">
+        No records Found
+       </div>
+    <mat-paginator
+      #paginatorRef
+      [length]="20"
+      [pageSize]="20"
+      [pageSizeOptions]="[20, 40, 60]" showFirstLastButtons></mat-paginator>
+  </div>
+    
+
+
+          <div *ngIf="!listView && detailsView">
+            <div class="col-xs-12">
+              <button mat-raised-button color="primary" (click)="viewList()"> Back </button>
+            </div>
+              <div class="row">
+                    <div class="col-xs-12 col-md-10 offset-md-2 block">
+                      <div class="wrapper-progressBar">
+                          <ul class="progressBar">
+                          <span *ngIf="billDetails.medical_department_approval == 'Pending' && billDetails.company_approve == 'Pending'">
+                            <li class="active">Hospital {{billDetails.created_at | date}}</li>
+                            <li>Medical Department</li>
+                            <li>Account Department</li>
+                          </span>
+                          <span *ngIf="(billDetails.medical_department_approval == 'Approved' || billDetails.medical_department_approval == 'Partially') && billDetails.company_approve == 'Pending'">
+                            <li class="active">Hospital{{billDetails.created_at | date}}</li>
+                            <li class="active">Medical Department({{billDetails.medical_department_approval}})</li>
+                            <li>Account Department</li>
+                          </span>
+                          <span *ngIf="billDetails.company_approve == 'Approved' || billDetails.company_approve == 'Partially'">
+                            <li class="active">Hospital {{billDetails.created_at | date}}</li>
+                            <li class="active">Medical Department({{billDetails.medical_department_approval}})</li>
+                            <li class="active" >Account Department({{billDetails.company_approve}}) {{billDetails.company_approval_date | date}}</li>
+                          </span>
+                          
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              <div class="col-sm-12 col-xs-12">
+                <p class="employee_address"><b>Company Approve: {{billDetails.company_approve}} </b></p>
+              </div>
+              <div class="col-sm-12 col-xs-12">
+                <p class="employee_address"><b>Bill amount received: {{billDetails.company_approve_amount}} </b></p>
+              </div>
+              <div class="col-sm-12 col-xs-12">
+                <p class="employee_address"><b>Admission number: {{billDetails.admission_number}} </b></p>
+              </div>
+              <div class="col-sm-12 col-xs-12">
+                <p class="employee_address"><b>Medical card no: {{billDetails.employee.master.medical_card_number}} </b></p>
+              </div>
+              <div class="col-sm-12 col-xs-12">
+                <p class="employee_address"><b>Submitted On: </b>{{billDetails.created_at | date}}</p>
+                <p class="employee_address"><b>Discharged On: </b>{{billDetails.date_of_discharge | date}}</p>
+                <p class="employee_address"><b>Medical Service Description: </b><br>{{billDetails.medical_service_description}}</p>
+              </div>
+
+             <div class="row " style="margin-top: 15px;">
+              <div class="col-xs-12 col-sm-12">
+
+              <div class="col-sm-12 particulars" style="margin-bottom: 10px;" *ngFor="let Pelement of billDetails.bill_documents">
+                <p class="employee_address"><b>Invoice number: </b>{{Pelement.invoice_number}}</p>
+                <p class="employee_address"><b>Description: </b>{{Pelement.document_description}}</p>
+                <p class="employee_address"><b>Amount: </b>{{Pelement.amount}}</p>
+              </div>
+            </div>
+           </div>
+           <div *ngIf="user_role=='data_entry'">
+            <p class="employee_address"><b>Approved By Hospital Admin: </b>{{billDetails.hospital_submit}}</p>
+           </div>
+           <div *ngIf="billDetails.hospital_submit != 'yes' && user_role=='admin'" style="margin-top: 15px;">
+             <button  mat-button class="btn btn-success" (click)="approve(billDetails.id , billDetails.admission_number )" type="button" style="margin-right: 10px;">Approve</button>
+             <button  mat-button class="btn btn-danger" (click)="reject(billDetails.id)"type="button">Reject</button>
+           </div>
+      </div>
+ 
+</section>

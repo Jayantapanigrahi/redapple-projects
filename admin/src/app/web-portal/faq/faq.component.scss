@@ -1,0 +1,27 @@
+@import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+#faqAccordion .card{
+	margin-bottom:15px;
+	border: 1px solid #f44336;
+}
+#faqAccordion .card-header h2{
+	font-size:18px;
+	color: #fff;
+}
+
+#faqAccordion .card-header{
+	background-color: #f44336;
+	border:none;	
+}
+#faqAccordion .card-header h2:before{
+	float: right!important;
+	font-family: FontAwesome;
+	content: "\f068";
+	font-size: 18px;
+}
+#faqAccordion .card-header>h2.collapsed:before{
+	float: right!important;
+	font-family: FontAwesome;
+    content: "\f067";
+    font-size: 18px;
+}

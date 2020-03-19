@@ -1,0 +1,149 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<form (ngSubmit)="save()" [formGroup]="form">
+  <div fxLayout="row" fxLayoutAlign="start center" mat-dialog-title>
+    <!-- <img *ngIf="form.get('imageSrc').value" [src]="form.get('imageSrc').value" class="avatar mr-5"> -->
+
+    <!-- <h2 *ngIf="form.get('code').value"
+        class="headline m-0"
+        fxFlex="auto">{{ form.get('code').value }}</h2>
+    <h2 *ngIf="!form.get('code').value"
+        class="headline m-0"
+        fxFlex="auto">New BILLS</h2> -->
+
+    <!-- <button [matMenuTriggerFor]="settingsMenu" class="text-secondary" mat-icon-button type="button">
+      <mat-icon [icIcon]="icMoreVert"></mat-icon>
+    </button> -->
+    <h2 style="width: 100%;">BILLs</h2>
+    <button class="text-secondary pull-right" mat-dialog-close mat-icon-button type="button">
+      <mat-icon [icIcon]="icClose"></mat-icon>
+    </button>
+  </div>
+  
+  <mat-divider class="-mx-6 text-border"></mat-divider>
+                  
+  <mat-dialog-content fxLayout="column" style="padding-top:10px;">
+    <div class="row">
+                    <div class="col-xs-12 col-md-10 offset-md-2 block border">
+                      <div class="wrapper-progressBar">
+                          <ul class="progressBar">
+                          <span *ngIf="billData.medical_department_approval == 'Pending' && billData.company_approve == 'Pending'">
+                            <li class="active">Hospital {{billData.created_at | date}}</li>
+                            <li>Medical Department</li>
+                            <li>Account Department</li>
+                          </span>
+                          <span *ngIf="(billData.medical_department_approval == 'Approved' || billData.medical_department_approval == 'Partially') && billData.company_approve == 'Pending'">
+                            <li class="active">Hospital{{billData.created_at | date}}</li>
+                            <li class="active">Medical Department({{billData.medical_department_approval}})</li>
+                            <li>Account Department</li>
+                          </span>
+                          <span *ngIf="(billData.company_approve =='Approved' || billData.company_approve == 'Partially') && (billData.medical_department_approval == 'Approved' || billData.medical_department_approval == 'Partially')">
+                            <li class="active">Hospital {{billData.created_at | date}}</li>
+                            <li class="active">Medical Department({{billData.medical_department_approval}})</li>
+                            <li class="active" >Account Department({{billData.company_approve}}) {{billData.company_approval_date | date}}</li>
+                          </span>
+                          
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6" style="margin-bottom: 10px;">
+        <b>Employee Name: </b><br>
+        {{(!billData.employee)?'':(billData.employee)}}
+      </div>
+      <div class="col-xs-12 col-sm-6" style="margin-bottom: 10px;">
+        <b>Hospital Name: </b><br>
+        {{(!billData.hospital)?'':(billData.hospital)}}
+      </div>
+      <div class="col-xs-12 col-sm-6" style="margin-bottom: 10px;">
+        <b>Hospital submit date: </b><br>
+        {{(!billData.hospital_submit_date)?'':(billData.hospital_submit_date) | date}}
+      </div>
+      
+      <div class="col-xs-12 col-sm-6" style="margin-bottom: 10px;">
+        <b>Medical Department Approval Status: </b><br>
+        {{(!billData.medical_department_approval)?'':(billData.medical_department_approval)}}
+      </div>
+      <div class="col-xs-12 col-sm-6" style="margin-bottom: 10px;">
+        <b>Account Department Approval Status: </b><br>
+        {{(!billData.company_approve)?'':(billData.company_approve)}}
+      </div>
+      <div class="col-xs-12 col-sm-6" style="margin-bottom: 10px;">
+        <b>Account Department Approval Amount: </b><br>
+        {{(!billData.company_approve_amount)?'':(billData.company_approve_amount)}}
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-xs-12" style="margin-bottom: 10px;">
+        <b>Invoices: </b><br>
+        <div class="col-sm-12 particulars" *ngFor="let Pelement of billData.bill_documents" style="padding: 0;">
+          <p class="employee_address"><b>Invoice number: </b><br>{{Pelement.invoice_number}}</p>
+          <p class="employee_address"><b>Description: </b><br>{{Pelement.document_description}}</p>
+          <p><b>Invoice: </b><a [href]="Pelement.document_name" target="_blank" [download]="fileUrl">DownloadFile</a></p>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6" style="margin-bottom: 10px; ">
+        <b>Discharge Document: </b><br>
+        <p class="employee_address"><a [href]="fileUrl" target="_blank"  [download]="fileUrl">DownloadFile</a></p>
+      </div>
+      <div class="clearfix"></div>
+      <div class="col-xs-12">
+        <mat-form-field class="mt-6" fxFlex>
+              <mat-label>Comment</mat-label>
+              <textarea matInput cdkFocusInitial formControlName="medical_department_comment" placeholder="Ex. Please Comment"></textarea>
+              <!-- <mat-icon [icIcon]="icPrint" class="mr-3" matPrefix></mat-icon> -->
+        </mat-form-field>
+      </div>
+    </div>
+   
+    <p></p>
+    <p></p>
+
+  </mat-dialog-content>
+ 
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">CANCEL</button>
+   <!--  <button *ngIf="admin_role == 'admin' || admin_type == '1'" color="primary" mat-button type="submit" (click)="rejectBill()">Reject</button> -->
+    <button *ngIf="isUpdateMode()" color="primary" mat-button type="submit" [disabled]="form.invalid">Comment</button>
+    <div *ngIf="(admin_role == 'admin' && admin_type == '2') || admin_type == '1' && billData.medical_department_approval == 'Pending'">
+      <h3>Medical Department</h3>
+    <select  #action>
+    <option value="Approved">Approve</option>
+    <option value="Partially">Partialy Approve</option>
+    <option value="Rejected">Reject</option>
+    </select>
+
+    <button *ngIf="admin_role == 'admin' || admin_type == '1' " color="primary" mat-button type="button" (click)="approveBillMedical(action.value)">Submit</button>
+   </div>
+
+   <div *ngIf="(admin_role == 'admin' && admin_type == '3') || admin_type == '1'  && billData.company_approve == 'Pending'">
+    <h3>Accounts Department</h3>
+    <select  #actionAccount>
+    <option value="Approved">Approve</option>
+    <option value="Partially">Partialy Approve</option>
+    <option value="Rejected">Reject</option>
+    </select>
+    <mat-form-field class="full_width" >
+        <mat-label>Approved amount</mat-label>
+        <input matInput type="number" #amount placeholder="Approve amount" [min]='0'  (keypress)="omit_text($event)">
+    </mat-form-field>
+    <button color="primary" mat-button type="button" (click)="approveBillAccount(actionAccount.value,amount.value)">Submit</button>
+   </div>
+  </mat-dialog-actions>
+</form>
+
+<!-- <mat-menu #settingsMenu="matMenu" xPosition="before" yPosition="below">
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icPrint"></mat-icon>
+    <span>Print</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icDownload"></mat-icon>
+    <span>Export</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icDelete"></mat-icon>
+    <span>Delete</span>
+  </button>
+</mat-menu> -->
